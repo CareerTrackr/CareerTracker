@@ -1,12 +1,16 @@
 import { useState } from 'react';
-import './App.css';
+import { HashRouter } from 'react-router-dom';
 
 function App() {
+  return <div>Hello Matty X&apos;s Mentor Family</div>;
+}
+
+function WrappedApp() {
   return (
-    <div>
-      Hello World
-    </div>
+    <HashRouter>
+      <App />
+    </HashRouter>
   );
 }
 
-export default App;
+export default WrappedApp;
