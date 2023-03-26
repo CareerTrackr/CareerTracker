@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { HashRouter } from 'react-router-dom';
 
 function App() {
-  return <div>Hello Matty X&apos;s Mentor Family</div>;
+  return <div>Hello Matty X&apos;s Mentor Familys</div>;
 }
 
 function WrappedApp() {
