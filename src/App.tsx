@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { HashRouter } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Sidebar } from "./components/Sidebar.js";
 
 function App() {
+  const [showHomepage, setShowHomepage] = useState(false);
+  const [showApplications, setShowApplications] = useState(false);
+  const [showNotes, setShowNotes] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showSearchFilter, setShowSearchFilter] = useState(false);
+  
+
   return (
     <div>
-      <Button variant="contained">delete me<DeleteIcon></DeleteIcon></Button>
-      
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
+      Hello TX!
+      <Sidebar></Sidebar>
     </div>
   )
 }
