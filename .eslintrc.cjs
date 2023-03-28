@@ -18,7 +18,7 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
   },
-  ignorePAtterns: ["postcss.config.js, tailwind.config.js"],
+  ignorePAtterns: ["style.css"],
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
     'react/react-in-jsx-scope': 0,
