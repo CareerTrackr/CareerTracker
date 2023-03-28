@@ -20,7 +20,7 @@ function WrappedApp() {
     <HashRouter>
       <App />
     </HashRouter>
-  );
+  )
 }
 
 export default WrappedApp;
