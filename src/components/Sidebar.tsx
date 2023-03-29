@@ -4,8 +4,10 @@ import ArticleIcon from '@mui/icons-material/Article';
 import EditIcon from '@mui/icons-material/Edit';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import SearchIcon from '@mui/icons-material/Search';
+import { PageOptions } from "../../types";
 
-export const Sidebar = () => {
+
+export const Sidebar: React.FunctionComponent<PageOptions> = ({showApplications, setShowApplications, showNotes, setShowNotes, showNotifications, setShowNotifications, showSearchFilter, setShowSearchFilter}) => {
   return (
     <Box sx={{width: "100%", height: "auto", mx: 0}}>
       <List>
