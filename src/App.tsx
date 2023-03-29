@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { HashRouter } from 'react-router-dom';
 import { Sidebar } from "./components/Sidebar.js";
-import { PageOptions } from "../types.js";
 
 function App() {
   const [showHomepage, setShowHomepage] = useState(false);
