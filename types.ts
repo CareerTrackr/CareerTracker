@@ -8,3 +8,7 @@ export interface PageOptions {
   setShowNotifications: React.Dispatch<React.SetStateAction<boolean>>;
   setShowSearchFilter: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface DarkMode {
+  setDarkMode: React.Dispatch<React.SetStateAction<string>>;
+}
