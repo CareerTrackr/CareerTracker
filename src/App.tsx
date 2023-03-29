@@ -11,14 +11,12 @@ function App() {
   
 
   return (
-
-      <Sidebar 
-        showApplications={showApplications} setShowApplications ={setShowApplications}
-        showNotes={showNotes} setShowNotes={setShowNotes}
-        showNotifications={showNotifications} setShowNotifications={setShowNotifications}
-        showSearchFilter={showSearchFilter} setShowSearchFilter={setShowSearchFilter}
-      />
-
+    <Sidebar 
+      showApplications={showApplications} setShowApplications ={setShowApplications}
+      showNotes={showNotes} setShowNotes={setShowNotes}
+      showNotifications={showNotifications} setShowNotifications={setShowNotifications}
+      showSearchFilter={showSearchFilter} setShowSearchFilter={setShowSearchFilter}
+    />
   )
 }
 
