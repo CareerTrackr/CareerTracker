@@ -10,5 +10,5 @@ export interface PageOptions {
 }
 
 export interface DarkMode {
-  setDarkMode: React.Dispatch<React.SetStateAction<string>>;
+  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
