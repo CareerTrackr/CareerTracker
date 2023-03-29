@@ -8,11 +8,38 @@ import { PageOptions } from "../../types";
 
 
 export const Sidebar: React.FunctionComponent<PageOptions> = ({showApplications, setShowApplications, showNotes, setShowNotes, showNotifications, setShowNotifications, showSearchFilter, setShowSearchFilter}) => {
+  function toggleOptions(input: String): void{
+    if(input === "applications"){
+      setShowApplications(true);
+      setShowNotes(false);
+      setShowNotifications(false);
+      setShowSearchFilter(false);
+    }
+    if(input === "notes"){
+      setShowApplications(false);
+      setShowNotes(true);
+      setShowNotifications(false);
+      setShowSearchFilter(false);
+    }
+    if(input === "notifications"){
+      setShowApplications(false);
+      setShowNotes(false);
+      setShowNotifications(true);
+      setShowSearchFilter(false);
+    }
+    if(input === "search"){
+      setShowApplications(false);
+      setShowNotes(false);
+      setShowNotifications(false);
+      setShowSearchFilter(true);
+    }
+  }
+  
   return (
     <Box sx={{width: "100%", height: "auto", mx: 0}}>
       <List>
         <ListItem>
-          <ListItemButton>
+          <ListItemButton selected={showApplications} onClick={() => toggleOptions("applications")}>
             <ListItemIcon>
               <ArticleIcon/>
             </ListItemIcon>
@@ -20,7 +47,7 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({showApplications,
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton>
+          <ListItemButton selected={showNotes} onClick={() => toggleOptions("notes")}>
             <ListItemIcon>
               <EditIcon/>
             </ListItemIcon>
@@ -28,7 +55,7 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({showApplications,
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton>
+          <ListItemButton selected={showNotifications} onClick={() => toggleOptions("notifications")}>
             <ListItemIcon>
               <NotificationsIcon/>
             </ListItemIcon>
@@ -36,7 +63,7 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({showApplications,
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton>
+          <ListItemButton selected={showSearchFilter} onClick={() => toggleOptions("search")}>
             <ListItemIcon>
               <SearchIcon/>
             </ListItemIcon>
