@@ -19,7 +19,7 @@ function App ({setDarkMode}: DarkMode) {
       showNotes={showNotes} setShowNotes={setShowNotes}
       showNotifications={showNotifications} setShowNotifications={setShowNotifications}
       showSearchFilter={showSearchFilter} setShowSearchFilter={setShowSearchFilter}
-    />
+    ></Sidebar>
   )
 }
 
