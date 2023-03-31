@@ -1,11 +1,10 @@
-import React, { useEffect, useState, FC } from "react";
+import React from "react";
+import { PageOptions } from "../../types";
 import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import ArticleIcon from '@mui/icons-material/Article';
 import EditIcon from '@mui/icons-material/Edit';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import SearchIcon from '@mui/icons-material/Search';
-import { PageOptions } from "../../types";
-
 
 export const Sidebar: React.FunctionComponent<PageOptions> = ({showApplications, setShowApplications, showNotes, setShowNotes, showNotifications, setShowNotifications, showSearchFilter, setShowSearchFilter}) => {
   function toggleOptions(input: String): void{
