@@ -9,7 +9,7 @@ import { Sidebar } from "./components/Sidebar.js";
 import  Header  from './components/Header';
 
 function App ({setDarkMode}: DarkMode) {
-  const [showHomepage, setShowHomepage] = useState(false);
+  const [showHomepage, setShowHomepage] = useState(true);
   const [showApplications, setShowApplications] = useState(true);
   const [showNotes, setShowNotes] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -18,7 +18,7 @@ function App ({setDarkMode}: DarkMode) {
 
   return showHomepage ? (
     <div>
-      <Homepage></Homepage>
+      <Homepage setShowHomepage={setShowHomepage}></Homepage>
     </div>
   ) : (
     <div>

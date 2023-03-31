@@ -5,7 +5,7 @@ import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
 import LoginIcon from '@mui/icons-material/Login';
 import { indigo } from '@mui/material/colors';
 
-export const Homepage = () => {
+export const Homepage = ({setShowHomepage}: React.Dispatch<React.SetStateAction<boolean>>) => {
   const welcomeTheme = createTheme({
     typography: {
       fontFamily: [
@@ -24,6 +24,11 @@ export const Homepage = () => {
     },
   }));
 
+  function handleLogin() {
+    //temporarily set showing the homepage to be false
+    setShowHomepage(false);
+  }
+
   return (
     
     <Box sx={{display: "flex", height: "100vh", flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
@@ -41,7 +46,7 @@ export const Homepage = () => {
           </Typography>
         </Fade>
         <Fade in={true} timeout={4000}>
-          <ColorButton size="large" variant="outlined" startIcon={<LoginIcon/>} >
+          <ColorButton size="large" variant="outlined" startIcon={<LoginIcon/>} onClick={handleLogin}>
             Login
           </ColorButton>
         </Fade>
