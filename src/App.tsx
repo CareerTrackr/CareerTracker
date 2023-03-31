@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Sidebar } from "./components/Sidebar.js";
 import { DarkMode } from '../types.js';
+import Header from './components/Header';
 
 function App ({setDarkMode}: DarkMode) {
   const [showHomepage, setShowHomepage] = useState(false);
@@ -12,14 +13,19 @@ function App ({setDarkMode}: DarkMode) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showSearchFilter, setShowSearchFilter] = useState(false);
 
+
   return (
-    //<Header setDarkMode={setDarkMode}/> include dark mode option in header 
-    <Sidebar 
-      showApplications={showApplications} setShowApplications ={setShowApplications}
-      showNotes={showNotes} setShowNotes={setShowNotes}
-      showNotifications={showNotifications} setShowNotifications={setShowNotifications}
-      showSearchFilter={showSearchFilter} setShowSearchFilter={setShowSearchFilter}
-    ></Sidebar>
+    //<Header setDarkMode={setDarkMode}/> include dark mode option in header
+    <div>
+      <Header/>
+      <Sidebar 
+        showApplications={showApplications} setShowApplications ={setShowApplications}
+        showNotes={showNotes} setShowNotes={setShowNotes}
+        showNotifications={showNotifications} setShowNotifications={setShowNotifications}
+        showSearchFilter={showSearchFilter} setShowSearchFilter={setShowSearchFilter}
+      ></Sidebar>
+    </div>
+    
   )
 }
 
@@ -38,9 +44,8 @@ function WrappedApp() {
         <CssBaseline/>
         <App setDarkMode={setDarkMode}/>
       </ThemeProvider>
-      
     </HashRouter>
-  )
+  );
 }
 
 export default WrappedApp;
