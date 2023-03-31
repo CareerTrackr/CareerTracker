@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Box, Fade, Typography, Button } from "@mui/material";
 import { ButtonProps } from "@mui/material/Button";
 import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
@@ -7,6 +7,14 @@ import { indigo } from '@mui/material/colors';
 import { showHomepageOptions } from "../../types";
 
 export const Homepage: React.FunctionComponent<showHomepageOptions> = ({setShowHomepage}) => {
+  const [showLogin, setShowLogin] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowLogin(true);
+    }, 2000)
+  }, [])
+
   const welcomeTheme = createTheme({
     typography: {
       fontFamily: [
@@ -46,11 +54,13 @@ export const Homepage: React.FunctionComponent<showHomepageOptions> = ({setShowH
             Welcome
           </Typography>
         </Fade>
-        <Fade in={true} timeout={4000}>
-          <ColorButton size="large" variant="outlined" startIcon={<LoginIcon/>} onClick={handleLogin}>
-            Login
-          </ColorButton>
-        </Fade>
+        {showLogin ? (
+          <Fade in={true} timeout={2000}>
+            <ColorButton size="large" variant="outlined" startIcon={<LoginIcon/>} onClick={handleLogin}>
+              Login
+            </ColorButton>
+          </Fade>
+        ) : <Fade in={false} ><ColorButton size="large">InvisPlaceholder</ColorButton></Fade>}
       </ThemeProvider>
     </Box>
   )
