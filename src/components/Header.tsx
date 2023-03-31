@@ -1,4 +1,4 @@
-import logo from '../CareerTracker.png';
+import logo from '../assets/CareerTracker.png';
 
 const Header = () => {
   return (
