@@ -1,7 +1,9 @@
 import React from "react";
 import { Box, Fade, Typography, Button } from "@mui/material";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ButtonProps } from "@mui/material/Button";
+import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
 import LoginIcon from '@mui/icons-material/Login';
+import { indigo } from '@mui/material/colors';
 
 export const Homepage = () => {
   const welcomeTheme = createTheme({
@@ -13,6 +15,14 @@ export const Homepage = () => {
     }
   })
 
+  const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
+    color: theme.palette.getContrastText(indigo[500]),
+    borderColor: "white",
+    '&:hover': {
+      backgroundColor: indigo[800],
+      borderColor: "white"
+    },
+  }));
 
   return (
     
@@ -31,9 +41,9 @@ export const Homepage = () => {
           </Typography>
         </Fade>
         <Fade in={true} timeout={4000}>
-          <Button variant="contained" startIcon={<LoginIcon/>}>
+          <ColorButton size="large" variant="outlined" startIcon={<LoginIcon/>} >
             Login
-          </Button>
+          </ColorButton>
         </Fade>
       </ThemeProvider>
     </Box>
