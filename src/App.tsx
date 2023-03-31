@@ -10,7 +10,7 @@ import  Header  from './components/Header';
 
 function App ({setDarkMode}: DarkMode) {
   const [showHomepage, setShowHomepage] = useState(false);
-  const [showApplications, setShowApplications] = useState(false);
+  const [showApplications, setShowApplications] = useState(true);
   const [showNotes, setShowNotes] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showSearchFilter, setShowSearchFilter] = useState(false);
