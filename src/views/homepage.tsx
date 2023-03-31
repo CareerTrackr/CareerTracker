@@ -4,8 +4,9 @@ import { ButtonProps } from "@mui/material/Button";
 import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
 import LoginIcon from '@mui/icons-material/Login';
 import { indigo } from '@mui/material/colors';
+import { showHomepageOptions } from "../../types";
 
-export const Homepage = ({setShowHomepage}: React.Dispatch<React.SetStateAction<boolean>>) => {
+export const Homepage: React.FunctionComponent<showHomepageOptions> = ({setShowHomepage}) => {
   const welcomeTheme = createTheme({
     typography: {
       fontFamily: [

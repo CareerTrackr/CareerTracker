@@ -9,6 +9,10 @@ export interface PageOptions {
   setShowSearchFilter: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+export interface showHomepageOptions {
+  setShowHomepage: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 export interface DarkMode {
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
