@@ -1,17 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import ArticleIcon from '@mui/icons-material/Article';
-import EditIcon from '@mui/icons-material/Edit';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import SearchIcon from '@mui/icons-material/Search';
-import { PageOptions } from "../../types";
+import React from "react";
+import { Box, Fade, Typography, Button } from "@mui/material";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import LoginIcon from '@mui/icons-material/Login';
+
+export const Homepage = () => {
+  const welcomeTheme = createTheme({
+    typography: {
+      fontFamily: [
+        'Alkatra',
+        'cursive',
+      ].join(','),
+    }
+  })
 
 
-export const Sidebar = () => {
-  
   return (
-    <Box sx={{width: "100%", height: "auto", mx: 0}}>
-      
+    
+    <Box sx={{display: "flex", height: "100vh", flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
+      <ThemeProvider theme={welcomeTheme}>
+        <Fade in={true} timeout={2000}>
+          <Typography variant="h1">
+            Welcome
+          </Typography>
+        </Fade>
+        <Fade in={true} timeout={4000}>
+          <Button variant="contained" startIcon={<LoginIcon/>}>
+            Login
+          </Button>
+        </Fade>
+      </ThemeProvider>
     </Box>
   )
 }
