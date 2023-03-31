@@ -17,6 +17,13 @@ export const Homepage = () => {
   return (
     
     <Box sx={{display: "flex", height: "100vh", flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
+      <Box className="diagonal-hero-bg">
+        <Box className="stars">
+          <Box className="small"></Box>
+          <Box className="medium"></Box>
+          <Box className="big"></Box>
+        </Box>
+      </Box>
       <ThemeProvider theme={welcomeTheme}>
         <Fade in={true} timeout={2000}>
           <Typography variant="h1">
