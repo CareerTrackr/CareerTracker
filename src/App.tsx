@@ -3,7 +3,7 @@ import { HashRouter } from 'react-router-dom';
 import { DarkMode } from '../types.js';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-// import { Homepage } from './views/Homepage.js';
+import { Homepage } from './views/Homepage.js';
 import { Applications } from './views/Applications.js';
 import { Sidebar } from "./components/Sidebar.js";
 import  Header  from './components/Header';
@@ -16,10 +16,12 @@ function App ({setDarkMode}: DarkMode) {
   const [showSearchFilter, setShowSearchFilter] = useState(false);
 
 
-  return (
-    //<Header setDarkMode={setDarkMode}/> include dark mode option in header
+  return showHomepage ? (
     <div>
-      {/* <Homepage></Homepage> */}
+      <Homepage></Homepage>
+    </div>
+  ) : (
+    <div>
       <Header/>
       <Sidebar 
         showApplications={showApplications} setShowApplications ={setShowApplications}
@@ -27,9 +29,11 @@ function App ({setDarkMode}: DarkMode) {
         showNotifications={showNotifications} setShowNotifications={setShowNotifications}
         showSearchFilter={showSearchFilter} setShowSearchFilter={setShowSearchFilter}
       ></Sidebar>
-      <Applications/>
+      {
+        showApplications ? <Applications/> : <></>
+      }
     </div>
-    
+
   )
 }
 
