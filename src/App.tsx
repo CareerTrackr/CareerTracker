@@ -5,16 +5,22 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Homepage } from './views/Homepage.js';
 import { Applications } from './views/Applications.js';
-import { Sidebar } from "./components/Sidebar.js";
-import  Header  from './components/Header';
+import { Sidebar } from './components/Sidebar.js';
+import Header from './components/Header';
+import MenuIcon from '@mui/icons-material/Menu';
+import Tooltip from '@mui/material/Tooltip';
 
-function App ({setDarkMode}: DarkMode) {
+function App({ setDarkMode }: DarkMode) {
   const [showHomepage, setShowHomepage] = useState(true);
   const [showApplications, setShowApplications] = useState(true);
   const [showNotes, setShowNotes] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showSearchFilter, setShowSearchFilter] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
 
+  const toggleSidebar = () => {
+    setShowSidebar(!showSidebar);
+  };
 
   return showHomepage ? (
     <div>
@@ -22,19 +28,32 @@ function App ({setDarkMode}: DarkMode) {
     </div>
   ) : (
     <div>
-      <Header/>
-      <Sidebar 
-        showApplications={showApplications} setShowApplications ={setShowApplications}
-        showNotes={showNotes} setShowNotes={setShowNotes}
-        showNotifications={showNotifications} setShowNotifications={setShowNotifications}
-        showSearchFilter={showSearchFilter} setShowSearchFilter={setShowSearchFilter}
-      ></Sidebar>
-      {
-        showApplications ? <Applications/> : <></>
-      }
-    </div>
+      <div>
+        <Header />
+        <Tooltip title="Menu">
+          <label>
+            <MenuIcon className="menuIcon" onClick={toggleSidebar} />
+          </label>
+        </Tooltip>
+      </div>
 
-  )
+      {showSidebar && (
+        <div>
+          <Sidebar
+            showApplications={showApplications}
+            setShowApplications={setShowApplications}
+            showNotes={showNotes}
+            setShowNotes={setShowNotes}
+            showNotifications={showNotifications}
+            setShowNotifications={setShowNotifications}
+            showSearchFilter={showSearchFilter}
+            setShowSearchFilter={setShowSearchFilter}
+          />
+        </div>
+      )}
+      {showApplications ? <Applications /> : <></>}
+    </div>
+  );
 }
 
 function WrappedApp() {
@@ -49,8 +68,8 @@ function WrappedApp() {
   return (
     <HashRouter>
       <ThemeProvider theme={darkTheme}>
-        <CssBaseline/>
-        <App setDarkMode={setDarkMode}/>
+        <CssBaseline />
+        <App setDarkMode={setDarkMode} />
       </ThemeProvider>
     </HashRouter>
   );

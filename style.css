@@ -16,3 +16,7 @@
 img {
   width: 300px;
 }
+
+.menuIcon:hover {
+  color: yellow;
+}
