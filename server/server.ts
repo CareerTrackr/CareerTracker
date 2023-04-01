@@ -1,5 +1,5 @@
 import express from 'express';
-// import * as cors from 'cors';
+import * as fs from 'fs';
 import { Request, Response } from "express";
 
 const PORT = 5174;
@@ -10,8 +10,15 @@ app.use((req, res, next) => {
   next();
 })
 
-app.get("/", (req: Request, res: Response) => {
-  console.log('in get request')
+app.get("/", async (req: Request, res: Response) => {
+  try {
+    const data = await fs.promises.readFile('applicationData.json');
+    res.send(data);
+  }
+  catch(err){
+    await fs.promises.writeFile('applicationData.json', JSON.stringify({}));
+    res.send(await fs.promises.readFile('applicationData.json'));
+  }
   res.send('Hello from server')
 });
 
