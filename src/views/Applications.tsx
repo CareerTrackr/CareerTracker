@@ -37,7 +37,7 @@ export const Applications = () => {
     {
       field: 'link', 
       headerName: 'Link',
-      renderCell: (params) => <Link href={`https://${params.value}`}>{params.row.link}</Link>,
+      renderCell: (params) => <Link href={`https://${params.row.link}`}>{params.row.link}</Link>,
       width: 200,
       editable: true,
     },

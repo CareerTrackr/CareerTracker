@@ -12,14 +12,14 @@ app.use((req, res, next) => {
 
 app.get("/", async (req: Request, res: Response) => {
   try {
-    const data = await fs.promises.readFile('applicationData.json');
+    const data = await fs.promises.readFile('applicationData.json', 'utf8');
     res.send(data);
   }
   catch(err){
     await fs.promises.writeFile('applicationData.json', JSON.stringify({}));
-    res.send(await fs.promises.readFile('applicationData.json'));
+    const data = await fs.promises.readFile('applicationData.json')
+    res.send(data);
   }
-  res.send('Hello from server')
 });
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
