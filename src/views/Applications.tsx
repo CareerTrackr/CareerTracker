@@ -5,7 +5,7 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 export const Applications = () => {
   function testFunc() {
-
+    fetch("http://localhost:5174/")
   }
 
   const columns: GridColDef[] = [
