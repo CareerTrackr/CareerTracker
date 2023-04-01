@@ -1,9 +1,13 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Link from '@mui/material/Link';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 export const Applications = () => {
+  function testFunc() {
+
+  }
+
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 50},
     {
@@ -47,6 +51,7 @@ export const Applications = () => {
 
   return (
     <Box sx={{ height: '100vh', width: '100%' }}>
+      <Button onClick={testFunc}>Push This</Button>
       <DataGrid
         rows={rows}
         columns={columns}
