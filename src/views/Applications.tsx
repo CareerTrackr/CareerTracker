@@ -1,47 +1,25 @@
-import React from "react";
-import { Box, Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box } from "@mui/material";
 import Link from '@mui/material/Link';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams, GridTreeNodeWithRender } from '@mui/x-data-grid';
 
 export const Applications = () => {
-  function testFunc() {
-    fetch("http://localhost:5174/")
-  }
+  const [columns, setColumns] = useState <GridColDef[]>([]);
 
-  const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 50},
-    {
-      field: 'date', 
-      headerName: 'Date',
-      width: 90,
-      editable: true,
-    },
-    {
-      field: 'status', 
-      headerName: 'Status',
-      width: 110,
-      editable: true,
-    },
-    {
-      field: 'company', 
-      headerName: 'Company',
-      width: 110,
-      editable: true,
-    },
-    {
-      field: 'role', 
-      headerName: 'Role',
-      width: 110,
-      editable: true,
-    },
-    {
-      field: 'link', 
-      headerName: 'Link',
-      renderCell: (params) => <Link href={`https://${params.row.link}`}>{params.row.link}</Link>,
-      width: 200,
-      editable: true,
-    },
-  ]
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  function fetchData() {
+    fetch("http://localhost:5174/")
+      .then(data => data.json())
+      .then(data => {
+        for(let i = 0; i < data.columns.length; i++){
+          if(data.columns[i].renderCellLink) data.columns[i].renderCell = (params: GridRenderCellParams<any, any, any, GridTreeNodeWithRender>) => <Link target="_blank" rel="noopener" href={`https://${params.row.link}`}>{params.row.link}</Link>
+        }
+        setColumns(data.columns);
+      })
+  }
 
   const rows = [
     { id: 1, date: '3/1', status: 'Applied', company: 'Google', role: 'SE 2', link: 'www.google.com' },
@@ -51,7 +29,6 @@ export const Applications = () => {
 
   return (
     <Box sx={{ height: '100vh', width: '100%' }}>
-      <Button onClick={testFunc}>Push This</Button>
       <DataGrid
         rows={rows}
         columns={columns}
