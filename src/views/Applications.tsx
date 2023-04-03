@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Box, Link, Fab } from "@mui/material";
+import { Box, Link, Fab, Modal, FormGroup, Button, InputLabel, TextField, Select, MenuItem } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import { DataGrid, GridColDef, GridRenderCellParams, GridTreeNodeWithRender } from '@mui/x-data-grid';
+import SendIcon from '@mui/icons-material/Send';
 
 export const Applications = () => {
   const [columns, setColumns] = useState <GridColDef[]>([]);
   const [rows, setRows] = useState <Object[]>([]);
+  const [showRowModal, setShowRowModal] = useState <boolean>(false);
+  const [status, setStatus] = useState <string>('Applied');
 
   useEffect(() => {
     fetchData();
@@ -34,7 +37,65 @@ export const Applications = () => {
 
   return (
     <Box sx={{ height: '100vh', width: '100%' }}>
-      <Fab aria-label='add' color='primary' sx={{position: 'absolute', bottom: -16, right: 16}}>
+      <Modal
+        open={showRowModal}
+        onClose={() => setShowRowModal(false)}
+        sx={{display:'flex',alignItems:'center',justifyContent:'center'}}
+      >
+        <Box sx={{position: 'center'}}>
+          <form>
+            <FormGroup sx={{ padding: 2, borderRadius: 2, border: '1px solid', borderColor: 'primary.main' }}>
+              <TextField 
+                sx={{ paddingBottom: 2 }} 
+                variant="standard" 
+                label="Date"
+                defaultValue={`${new Date().getMonth() + 1}\/${new Date().getDate()}`}
+              />
+              <InputLabel id="status" htmlFor="uncontrolled-native">Status</InputLabel>
+              <Select
+                labelId="status"
+                label="Age"
+                id="status"
+                defaultValue='Applied'
+                value={status}
+                onChange={(event) => {
+                  event.preventDefault();
+                  setStatus(event.target.value);
+                }}
+              >
+                <MenuItem value='Applied'>Applied</MenuItem>
+                <MenuItem value='Followed Up'>Followed Up</MenuItem>
+                <MenuItem value='Rejected'>Rejected</MenuItem>
+                <MenuItem value='Lost'>Lost</MenuItem>
+                <MenuItem value='Offer'>Offer</MenuItem>
+                <MenuItem value='Phone Screen'>Phone Screen</MenuItem>
+                <MenuItem value='Technical Interview/Take Home'>Technical Interview/Take Home</MenuItem>
+                <MenuItem value='Onsite'>Onsite</MenuItem>
+                <MenuItem value='Declined'>Declined</MenuItem>
+              </Select>
+              <TextField 
+                sx={{ paddingBottom: 2 }} 
+                variant="standard" 
+                label="Company Title"
+              />
+              <TextField 
+                sx={{ paddingBottom: 2 }} 
+                variant="standard" 
+                label="Title Role"
+              />
+              <TextField 
+                sx={{ paddingBottom: 2 }} 
+                variant="standard" 
+                label="Link"
+              />
+              <Button variant="contained" startIcon={<SendIcon/>}>
+                Submit
+              </Button>
+            </FormGroup>
+          </form>
+        </Box>
+      </Modal>
+      <Fab aria-label='add' color='primary' onClick={() => {setShowRowModal(true)}} sx={{position: 'absolute', bottom: -16, right: 16}}>
         <AddIcon/>
       </Fab>
       <DataGrid
