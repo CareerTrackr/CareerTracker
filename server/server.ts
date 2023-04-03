@@ -54,7 +54,11 @@ app.get("/", async (req: Request, res: Response) => {
           renderCellLink: true,
         },
       ],
-      rows: [],
+      rows: [
+        { date: '3/1', status: 'Applied', company: 'Google', role: 'SE 2', link: 'www.google.com' },
+        { date: '3/5', status: 'Applied', company: 'Amazon', role: 'SE 1', link: 'www.amazon.com' },
+        { date: '3/20', status: 'Applied', company: 'Netflix', role: 'Senior SE', link: 'www.netflix.com' },
+      ]
     }));
     const data = await fs.promises.readFile('applicationData.json')
     res.send(data);
