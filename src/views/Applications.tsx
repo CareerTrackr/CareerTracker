@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Link, Fab, Modal, FormGroup, Button, InputLabel, TextField, Select, MenuItem } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
+import { grey } from '@mui/material/colors';
 import { DataGrid, GridColDef, GridRenderCellParams, GridTreeNodeWithRender } from '@mui/x-data-grid';
 import SendIcon from '@mui/icons-material/Send';
 
@@ -40,28 +41,29 @@ export const Applications = () => {
       <Modal
         open={showRowModal}
         onClose={() => setShowRowModal(false)}
-        sx={{display:'flex',alignItems:'center',justifyContent:'center'}}
+        sx={{display:'flex', alignItems:'center', justifyContent:'center'}}
       >
         <Box sx={{position: 'center'}}>
           <form>
-            <FormGroup sx={{ padding: 2, borderRadius: 2, border: '1px solid', borderColor: 'primary.main' }}>
-              <TextField 
-                sx={{ paddingBottom: 2 }} 
-                variant="standard" 
-                label="Date"
-                defaultValue={`${new Date().getMonth() + 1}\/${new Date().getDate()}`}
-              />
-              <InputLabel id="status" htmlFor="uncontrolled-native">Status</InputLabel>
-              <Select
-                labelId="status"
-                label="Age"
-                id="status"
+            <FormGroup sx={{ padding: 2, borderRadius: 2, border: '1px solid', borderColor: 'primary.main', backgroundColor: grey[900] }}>
+              <Box sx={{ display: 'flex', flexGrow: 1 }}>  
+                <TextField 
+                  sx={{ paddingBottom: 2, paddingRight: 1, width: 70 }} 
+                  variant="standard" 
+                  label="Date"
+                  defaultValue={`${new Date().getMonth() + 1}\/${new Date().getDate()}`}
+                />
+                <TextField 
+                  sx={{ paddingBottom: 2, minWidth: '330px'}}
+                  variant="standard" 
+                  label="Company Title"
+                  placeholder="Company Title"
+                />
+              </Box>
+              <TextField
+                label="Status"
+                select={true}
                 defaultValue='Applied'
-                value={status}
-                onChange={(event) => {
-                  event.preventDefault();
-                  setStatus(event.target.value);
-                }}
               >
                 <MenuItem value='Applied'>Applied</MenuItem>
                 <MenuItem value='Followed Up'>Followed Up</MenuItem>
@@ -72,12 +74,7 @@ export const Applications = () => {
                 <MenuItem value='Technical Interview/Take Home'>Technical Interview/Take Home</MenuItem>
                 <MenuItem value='Onsite'>Onsite</MenuItem>
                 <MenuItem value='Declined'>Declined</MenuItem>
-              </Select>
-              <TextField 
-                sx={{ paddingBottom: 2 }} 
-                variant="standard" 
-                label="Company Title"
-              />
+              </TextField>
               <TextField 
                 sx={{ paddingBottom: 2 }} 
                 variant="standard" 
@@ -87,6 +84,13 @@ export const Applications = () => {
                 sx={{ paddingBottom: 2 }} 
                 variant="standard" 
                 label="Link"
+              />
+              <TextField
+                sx={{ paddingBottom: 2, minWidth: '400px' }}
+                multiline={true}
+                label="Notes"
+                variant="outlined"
+                placeholder="Notes here..."
               />
               <Button variant="contained" startIcon={<SendIcon/>}>
                 Submit
