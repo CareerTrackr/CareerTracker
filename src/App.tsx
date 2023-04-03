@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { HashRouter } from 'react-router-dom';
 import { DarkMode } from '../types.js';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Box } from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
 import { Homepage } from './views/Homepage.js';
 import { Applications } from './views/Applications.js';
 import { Sidebar } from "./components/Sidebar.js";
-import  Header  from './components/Header';
+import Header from './components/Header';
 
 function App ({setDarkMode}: DarkMode) {
   const [showHomepage, setShowHomepage] = useState(true);
@@ -21,19 +22,20 @@ function App ({setDarkMode}: DarkMode) {
       <Homepage setShowHomepage={setShowHomepage}></Homepage>
     </div>
   ) : (
-    <div>
+    <Box>
       <Header/>
-      <Sidebar 
-        showApplications={showApplications} setShowApplications ={setShowApplications}
-        showNotes={showNotes} setShowNotes={setShowNotes}
-        showNotifications={showNotifications} setShowNotifications={setShowNotifications}
-        showSearchFilter={showSearchFilter} setShowSearchFilter={setShowSearchFilter}
-      ></Sidebar>
-      {
-        showApplications ? <Applications/> : <></>
-      }
-    </div>
-
+      <Box sx={{ display: 'flex', flexGrow: 1 }}>
+        <Sidebar 
+          showApplications={showApplications} setShowApplications ={setShowApplications}
+          showNotes={showNotes} setShowNotes={setShowNotes}
+          showNotifications={showNotifications} setShowNotifications={setShowNotifications}
+          showSearchFilter={showSearchFilter} setShowSearchFilter={setShowSearchFilter}
+        ></Sidebar>
+        {
+          showApplications ? <Applications/> : <></>
+        }
+      </Box>
+    </Box>
   )
 }
 

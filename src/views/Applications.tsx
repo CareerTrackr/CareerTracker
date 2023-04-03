@@ -33,7 +33,7 @@ export const Applications = () => {
       <SpeedDial 
         ariaLabel="add" 
         icon = { <AddIcon/> }
-        sx={{ position: 'absolute', bottom: 16, right: 16 }}></SpeedDial>
+        sx={{ position: 'absolute', bottom: 4, right: 16 }}></SpeedDial>
       <DataGrid
         rows={rows}
         columns={columns}
