@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Box, Link } from "@mui/material";
+import { Box, Link, SpeedDial } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 import { DataGrid, GridColDef, GridRenderCellParams, GridTreeNodeWithRender } from '@mui/x-data-grid';
 
 export const Applications = () => {
@@ -28,7 +29,11 @@ export const Applications = () => {
   }
 
   return (
-    <Box sx={{ height: '60vh', width: '100%' }}>
+    <Box sx={{ height: '100vh', width: '100%' }}>
+      <SpeedDial 
+        ariaLabel="add" 
+        icon = { <AddIcon/> }
+        sx={{ position: 'absolute', bottom: 16, right: 16 }}></SpeedDial>
       <DataGrid
         rows={rows}
         columns={columns}
