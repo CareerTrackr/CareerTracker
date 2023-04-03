@@ -24,7 +24,11 @@ export const Homepage: React.FunctionComponent<showHomepageOptions> = ({setShowH
     "'If opportunity doesn’t knock, build a door.' - Kurt Cobain",
     "'Life is like a chess move - make your next move your very best.' - Matt Matias",
     "'Never stop doing your best just because someone doesn’t give you credit.' - Lyrikal",
-    "'We can do anything we want to if we stick to it long enough.' - Helen Keller"
+    "'We can do anything we want to if we stick to it long enough.' - Helen Keller",
+    "'You don't fail until you give up' - Jess Davila",
+    "'You do you.' - Mariko Iwata",
+    "'It's who you know. So make yourself someone they know.' - Victor He",
+    "'Better than late than never.' - Pei Chu"
   ]
 
   useEffect(() => {
