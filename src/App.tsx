@@ -16,7 +16,6 @@ function App ({setDarkMode}: DarkMode) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showSearchFilter, setShowSearchFilter] = useState(false);
 
-
   return showHomepage ? (
     <div>
       <Homepage setShowHomepage={setShowHomepage}></Homepage>
