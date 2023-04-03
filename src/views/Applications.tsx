@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Link, SpeedDial } from "@mui/material";
+import { Box, Link, Fab } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import { DataGrid, GridColDef, GridRenderCellParams, GridTreeNodeWithRender } from '@mui/x-data-grid';
 
@@ -28,12 +28,15 @@ export const Applications = () => {
       })
   }
 
+  function addRow() {
+    console.log('hello')
+  }
+
   return (
     <Box sx={{ height: '100vh', width: '100%' }}>
-      <SpeedDial 
-        ariaLabel="add" 
-        icon = { <AddIcon/> }
-        sx={{ position: 'absolute', bottom: 4, right: 16 }}></SpeedDial>
+      <Fab aria-label='add' color='primary' sx={{position: 'absolute', bottom: -16, right: 16}}>
+        <AddIcon/>
+      </Fab>
       <DataGrid
         rows={rows}
         columns={columns}
