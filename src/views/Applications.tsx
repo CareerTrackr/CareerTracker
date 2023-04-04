@@ -4,12 +4,14 @@ import AddIcon from '@mui/icons-material/Add';
 import { grey } from '@mui/material/colors';
 import { DataGrid, GridColDef, GridRenderCellParams, GridTreeNodeWithRender } from '@mui/x-data-grid';
 import SendIcon from '@mui/icons-material/Send';
+import { RowData } from "../../types";
+
 
 export const Applications = () => {
-  const [columns, setColumns] = useState <GridColDef[]>([]);
-  const [rows, setRows] = useState <Object[]>([]);
-  const [showRowModal, setShowRowModal] = useState <boolean>(false);
-  const [status, setStatus] = useState <string>('Applied');
+  const [columns, setColumns] = useState<GridColDef[]> ([]);
+  const [rows, setRows] = useState<Object[]> ([]);
+  const [showRowModal, setShowRowModal] = useState<boolean> (false);
+  const [newRowData, setNewRowData] = useState<RowData>({});
 
   useEffect(() => {
     fetchData();
@@ -32,8 +34,13 @@ export const Applications = () => {
       })
   }
 
-  function addRow() {
-    console.log('hello')
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setNewRowData({...newRowData, [event.target.name]: event.target.value})
+  }
+  
+  function handleSubmit(){
+    //send row data to backend here -> update rows state -> clear newRowData -> close modal
+    console.log(newRowData);
   }
 
   return (
@@ -44,26 +51,32 @@ export const Applications = () => {
         sx={{display:'flex', alignItems:'center', justifyContent:'center'}}
       >
         <Box sx={{position: 'center'}}>
-          <form>
+          <iframe name="hiddenFrame" id="hiddenFrame" width="0px" height="0px"></iframe>
+          <form action='/submitModal' target='hiddenFrame'>
             <FormGroup sx={{ padding: 2, borderRadius: 2, border: '1px solid', borderColor: 'primary.main', backgroundColor: grey[900] }}>
               <Box sx={{ display: 'flex', flexGrow: 1 }}>  
                 <TextField 
-                  sx={{ paddingBottom: 2, paddingRight: 1, width: 70 }} 
+                  name="date"
                   variant="standard" 
                   label="Date"
                   defaultValue={`${new Date().getMonth() + 1}\/${new Date().getDate()}`}
+                  onChange={onChangeHandler}
+                  sx={{ paddingBottom: 2, paddingRight: 1, width: 70 }} 
                 />
                 <TextField 
-                  sx={{ paddingBottom: 2, minWidth: '330px'}}
+                  name="companyTitle"
                   variant="standard" 
                   label="Company Title"
                   placeholder="Company Title"
+                  sx={{ paddingBottom: 2, minWidth: '330px'}}
                 />
               </Box>
               <TextField
+                name="status"
                 label="Status"
                 select={true}
                 defaultValue='Applied'
+                onChange={onChangeHandler}
               >
                 <MenuItem value='Applied'>Applied</MenuItem>
                 <MenuItem value='Followed Up'>Followed Up</MenuItem>
@@ -75,24 +88,30 @@ export const Applications = () => {
                 <MenuItem value='Onsite'>Onsite</MenuItem>
                 <MenuItem value='Declined'>Declined</MenuItem>
               </TextField>
-              <TextField 
-                sx={{ paddingBottom: 2 }} 
+              <TextField
+                name="roleTitle"
                 variant="standard" 
-                label="Title Role"
+                label="Role Title"
+                onChange={onChangeHandler}
+                sx={{ paddingBottom: 2 }} 
               />
               <TextField 
-                sx={{ paddingBottom: 2 }} 
+                name="link"
                 variant="standard" 
                 label="Link"
+                onChange={onChangeHandler}
+                sx={{ paddingBottom: 2 }} 
               />
               <TextField
-                sx={{ paddingBottom: 2, minWidth: '400px' }}
+                name="notes"
                 multiline={true}
                 label="Notes"
                 variant="outlined"
                 placeholder="Notes here..."
+                onChange={onChangeHandler}
+                sx={{ paddingBottom: 2, minWidth: '400px' }}
               />
-              <Button variant="contained" startIcon={<SendIcon/>}>
+              <Button variant="contained" onClick={handleSubmit} startIcon={<SendIcon/>}>
                 Submit
               </Button>
             </FormGroup>
