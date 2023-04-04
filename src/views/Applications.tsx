@@ -40,7 +40,20 @@ export const Applications = () => {
   
   function handleSubmit(){
     //send row data to backend here -> update rows state -> clear newRowData -> close modal
-    console.log(newRowData);
+    fetch('http://localhost:5174/', {
+      method: 'PATCH',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=utf-8'
+    },
+      body: JSON.stringify({
+        newRow: newRowData,
+      })
+    })
+    .then(data => {
+      fetchData();
+    })
+    .catch(err => {throw new Error(err)})
   }
 
   return (
