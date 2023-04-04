@@ -1,13 +1,16 @@
 import express from 'express';
 import * as fs from 'fs';
 import { Request, Response } from "express";
-
+import cors from 'cors';
 const PORT = 5174;
 const app = express();
 
-app.use((req, res, next) => {
-  res.set('Access-Control-Allow-Origin', 'http://localhost:5173');
-  next();
+app.use(cors());
+app.use(express.json());
+
+app.patch("/", async (req: Request, res: Response) => {
+  console.log('in patch', req.body)
+  return res.sendStatus(200);
 })
 
 app.get("/", async (req: Request, res: Response) => {
