@@ -75,6 +75,8 @@ export const Applications = () => {
     for(let i = 0; i < rows.length; i++){
       if(!deleteIds[rows[i].id]) updatedDataset.push(rows[i]);
     }
+    //clear selected ids
+    setSelectedIds([]);
     //update database
     fetch('http://localhost:5174/', {
       method: 'PATCH',
