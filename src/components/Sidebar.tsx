@@ -35,7 +35,7 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({showApplications,
   }
   
   return (
-    <Box sx={{width: "100%", height: "auto", mx: 0}}>
+    <Box sx={{width: "300px", height: "auto", mx: 0}}>
       <List>
         <ListItem>
           <ListItemButton selected={showApplications} onClick={() => toggleOptions("applications")}>
