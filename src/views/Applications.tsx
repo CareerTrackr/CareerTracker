@@ -55,6 +55,8 @@ export const Applications = () => {
       })
     })
     .then(() => {
+      //clear data after sending
+      setNewRowData({})
       fetchData();
     })
     .catch(err => {throw new Error(err)})
