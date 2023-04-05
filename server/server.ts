@@ -8,15 +8,23 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.patch("/", async (req: Request, res: Response) => {
-  console.log('in patch', req.body)
-  return res.sendStatus(200);
+app.post("/", async (req: Request, res: Response) => {
+  try{
+    const data = await fs.promises.readFile('applicationData.json', 'utf8');
+    const newData = JSON.parse(data);
+    newData.rows.push(req.body.newRow);
+    await fs.promises.writeFile('applicationData.json', JSON.stringify(newData));
+    return res.status(200).send('Post successful.');
+  }
+  catch(err){
+    return res.status(418).send('I do not have a teapot, so I cannot and will not brew coffee with it.');
+  }
 })
 
 app.get("/", async (req: Request, res: Response) => {
   try {
     const data = await fs.promises.readFile('applicationData.json', 'utf8');
-    res.send(data);
+    res.status(200).send(data);
   }
   catch(noFile){
     await fs.promises.writeFile('applicationData.json', JSON.stringify({
@@ -64,7 +72,7 @@ app.get("/", async (req: Request, res: Response) => {
       ]
     }));
     const data = await fs.promises.readFile('applicationData.json')
-    res.send(data);
+    res.status(201).send(data);
   }
 });
 
