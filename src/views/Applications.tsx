@@ -10,7 +10,7 @@ import { RowData, IdCache } from "../../types";
 
 export const Applications = () => {
   const [columns, setColumns] = useState<GridColDef[]> ([]);
-  const [rows, setRows] = useState<Object[]> ([]);
+  const [rows, setRows] = useState<RowData[]> ([]);
   const [showRowModal, setShowRowModal] = useState<boolean> (false);
   const [newRowData, setNewRowData] = useState<RowData>({});
   const [selectedIds, setSelectedIds] = useState<GridRowSelectionModel> ([]);
@@ -54,7 +54,7 @@ export const Applications = () => {
         newRow: newRowData,
       })
     })
-    .then(data => {
+    .then(() => {
       fetchData();
     })
     .catch(err => {throw new Error(err)})
@@ -65,10 +65,18 @@ export const Applications = () => {
   }
 
   function handleDeleteSelected(){
-    const ids: IdCache = {};
+    //create object to hold ids to be deleted
+    const deleteIds: IdCache = {};
     selectedIds.forEach(id => {
-      ids[id] = true;
+      deleteIds[id] = true;
     })
+    //iterate over data, add to updatedDataset if not to be deleted
+    const updatedDataset = [];
+    for(let i = 0; i < rows.length; i++){
+      if(!deleteIds[rows[i].id]) updatedDataset.push(rows[i]);
+    }
+    //update database
+    //re-fetch data
   }
 
   return (
