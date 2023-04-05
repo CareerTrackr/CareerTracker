@@ -17,10 +17,26 @@ img {
   width: 300px;
 }
 
+
 .dropdown {
   position: relative;
 }
 
 button:hover {
   color: yellow;
+
+.sidenav {
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  top: 100px;
+  left: 0;
+  z-index: 1;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.applications {
+  margin-left: 20%;
+
 }
