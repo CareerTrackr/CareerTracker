@@ -7,8 +7,10 @@ import { Homepage } from './views/Homepage.js';
 import { Applications } from './views/Applications.js';
 import { Sidebar } from './components/Sidebar.js';
 import Header from './components/Header';
+import Notes from './pages/Notes';
 import MenuIcon from '@mui/icons-material/Menu';
 import Tooltip from '@mui/material/Tooltip';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App({ setDarkMode }: DarkMode) {
   const [showHomepage, setShowHomepage] = useState(true);
@@ -52,6 +54,7 @@ function App({ setDarkMode }: DarkMode) {
         </div>
       )}
       {showApplications ? <Applications /> : <></>}
+      {showNotes ? <Notes /> : <></>}
     </div>
   );
 }
