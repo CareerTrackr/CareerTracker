@@ -76,7 +76,21 @@ export const Applications = () => {
       if(!deleteIds[rows[i].id]) updatedDataset.push(rows[i]);
     }
     //update database
-    //re-fetch data
+    fetch('http://localhost:5174/', {
+      method: 'PATCH',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=utf-8'
+    },
+      body: JSON.stringify({
+        rowData: updatedDataset,
+      })
+    })
+    .then(() => {
+      //refetch data
+      fetchData();
+    })
+    .catch(err => {throw new Error(err)})
   }
 
   return (
