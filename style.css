@@ -17,6 +17,14 @@ img {
   width: 300px;
 }
 
+
+.dropdown {
+  position: relative;
+}
+
+button:hover {
+  color: yellow;
+
 .sidenav {
   height: 100%;
   width: 20%;
@@ -30,4 +38,5 @@ img {
 
 .applications {
   margin-left: 20%;
+
 }
