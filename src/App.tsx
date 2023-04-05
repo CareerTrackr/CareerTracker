@@ -6,15 +6,16 @@ import { Box } from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
 import { Homepage } from './views/Homepage.js';
 import { Applications } from './views/Applications.js';
-import { Sidebar } from "./components/Sidebar.js";
+import { Sidebar } from './components/Sidebar.js';
 import Header from './components/Header';
 
-function App ({setDarkMode}: DarkMode) {
+function App({ setDarkMode }: DarkMode) {
   const [showHomepage, setShowHomepage] = useState(true);
   const [showApplications, setShowApplications] = useState(true);
   const [showNotes, setShowNotes] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showSearchFilter, setShowSearchFilter] = useState(false);
+  const [showSidebarText, setShowSidebarText] = useState(true);
 
   return showHomepage ? (
     <div>
@@ -29,6 +30,7 @@ function App ({setDarkMode}: DarkMode) {
           showNotes={showNotes} setShowNotes={setShowNotes}
           showNotifications={showNotifications} setShowNotifications={setShowNotifications}
           showSearchFilter={showSearchFilter} setShowSearchFilter={setShowSearchFilter}
+          showSidebarText={showSidebarText} setShowSidebarText={setShowSidebarText}
         ></Sidebar>
         {
           showApplications ? <Applications/> : <></>
@@ -50,8 +52,8 @@ function WrappedApp() {
   return (
     <HashRouter>
       <ThemeProvider theme={darkTheme}>
-        <CssBaseline/>
-        <App setDarkMode={setDarkMode}/>
+        <CssBaseline />
+        <App setDarkMode={setDarkMode} />
       </ThemeProvider>
     </HashRouter>
   );
