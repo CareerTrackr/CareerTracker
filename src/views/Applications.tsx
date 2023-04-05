@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Box, Link, Fab, Modal, FormGroup, Button, InputLabel, TextField, Select, MenuItem } from "@mui/material";
+import { Box, Link, Fab, Modal, FormGroup, Button, TextField, MenuItem } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import { grey } from '@mui/material/colors';
-import { DataGrid, GridColDef, GridRenderCellParams, GridTreeNodeWithRender } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams, GridRowSelectionModel, GridTreeNodeWithRender } from '@mui/x-data-grid';
 import SendIcon from '@mui/icons-material/Send';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { RowData } from "../../types";
 
 
@@ -12,6 +13,7 @@ export const Applications = () => {
   const [rows, setRows] = useState<Object[]> ([]);
   const [showRowModal, setShowRowModal] = useState<boolean> (false);
   const [newRowData, setNewRowData] = useState<RowData>({});
+  const [selectedIds, setSelectedIds] = useState<GridRowSelectionModel> ([]);
 
   useEffect(() => {
     fetchData();
@@ -56,6 +58,17 @@ export const Applications = () => {
       fetchData();
     })
     .catch(err => {throw new Error(err)})
+  }
+
+  function handleSelections(rowSelectionModel: GridRowSelectionModel){
+    setSelectedIds(rowSelectionModel);
+  }
+
+  function handleDeleteSelected(){
+    const ids: any = {};
+    selectedIds.forEach(id => {
+      ids[id] = true;
+    })
   }
 
   return (
@@ -134,14 +147,22 @@ export const Applications = () => {
           </form>
         </Box>
       </Modal>
-      <Fab aria-label='add' color='primary' onClick={() => {setShowRowModal(true)}} sx={{position: 'absolute', bottom: -16, right: 16}}>
-        <AddIcon/>
-      </Fab>
+      {
+        selectedIds.length ?
+        <Fab aria-label='delete' color='error' onClick={handleDeleteSelected} sx={{position: 'absolute', bottom: -16, right: 16}}>
+          <DeleteIcon/>
+        </Fab>
+        :
+        <Fab aria-label='add' color='primary' onClick={() => {setShowRowModal(true)}} sx={{position: 'absolute', bottom: -16, right: 16}}>
+          <AddIcon/>
+        </Fab>
+      }
       <DataGrid
         rows={rows}
         columns={columns}
         checkboxSelection
         disableRowSelectionOnClick
+        onRowSelectionModelChange={handleSelections}
       />
     </Box>
   )
