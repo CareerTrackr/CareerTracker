@@ -18,3 +18,11 @@ export interface showHomepageOptions {
 export interface DarkMode {
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface RowData {
+  [key: string]: string | number;
+}
+
+export interface IdCache {
+  [key: string]: true;
+}
