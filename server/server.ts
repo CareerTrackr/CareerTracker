@@ -8,6 +8,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.patch("/", async (req: Request, res: Response) => {
+  try{
+    const data = await fs.promises.readFile('applicationData.json', 'utf8');
+    const newData = JSON.parse(data);
+    newData.rows = req.body.rowData;
+    await fs.promises.writeFile('applicationData.json', JSON.stringify(newData));
+    return res.status(200).send('Patch successful.')
+  }
+  catch(err){
+    return res.status(418).send('I do not have a teapot, so I cannot and will not brew coffee with it.');
+  }
+})
+
 app.post("/", async (req: Request, res: Response) => {
   try{
     const data = await fs.promises.readFile('applicationData.json', 'utf8');
