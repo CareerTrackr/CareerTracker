@@ -43,7 +43,7 @@ export const Applications = () => {
     if(!newRowData.date) newRowData.date = `${new Date().getMonth() + 1}\/${new Date().getDate()}`;
     if(!newRowData.status) newRowData.status = 'Applied';
     fetch('http://localhost:5174/', {
-      method: 'PATCH',
+      method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json;charset=utf-8'
@@ -79,7 +79,7 @@ export const Applications = () => {
                   sx={{ paddingBottom: 2, paddingRight: 1, width: 70 }} 
                 />
                 <TextField 
-                  name="companyTitle"
+                  name="company"
                   variant="standard" 
                   label="Company Title"
                   placeholder="Company Title"
@@ -105,7 +105,7 @@ export const Applications = () => {
                 <MenuItem value='Declined'>Declined</MenuItem>
               </TextField>
               <TextField
-                name="roleTitle"
+                name="role"
                 variant="standard" 
                 label="Role Title"
                 onChange={onChangeHandler}
