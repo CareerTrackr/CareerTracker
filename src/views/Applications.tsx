@@ -189,6 +189,7 @@ export const Applications = () => {
         checkboxSelection
         disableRowSelectionOnClick
         onRowSelectionModelChange={handleSelections}
+        rowSelectionModel={selectedIds}
       />
     </Box>
   )
