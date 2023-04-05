@@ -18,5 +18,9 @@ export interface DarkMode {
 }
 
 export interface RowData {
-  [key: string]: string | number | undefined
+  [key: string]: string | number;
+}
+
+export interface IdCache {
+  [key: string]: true;
 }
