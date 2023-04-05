@@ -58,63 +58,65 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({
   }
 
   return (
-    <Box sx={{ width: '100%', height: 'auto', mx: 0 }}>
-      <List>
-        <ListItem>
-          <ListItemButton
-            selected={showApplications}
-            onClick={() => toggleOptions('applications')}
-          >
-            <ListItemIcon>
-              <ArticleIcon />
-            </ListItemIcon>
-            {showSidebarText && <ListItemText primary="Applications" />}
-          </ListItemButton>
-        </ListItem>
-        <ListItem>
-          <ListItemButton
-            selected={showNotes}
-            onClick={() => toggleOptions('notes')}
-          >
-            <ListItemIcon>
-              <EditIcon />
-            </ListItemIcon>
-            {showSidebarText && <ListItemText primary="Notes" />}
-          </ListItemButton>
-        </ListItem>
-        <ListItem>
-          <ListItemButton
-            selected={showNotifications}
-            onClick={() => toggleOptions('notifications')}
-          >
-            <ListItemIcon>
-              <NotificationsIcon />
-            </ListItemIcon>
-            {showSidebarText && <ListItemText primary="Notifications" />}
-          </ListItemButton>
-        </ListItem>
-        <ListItem>
-          <ListItemButton
-            selected={showSearchFilter}
-            onClick={() => toggleOptions('search')}
-          >
-            <ListItemIcon>
-              <SearchIcon />
-            </ListItemIcon>
-            {showSidebarText && <ListItemText primary="Search" />}
-          </ListItemButton>
-        </ListItem>
-        <ListItem>
-          <ListItemButton
-            selected={showSidebarText}
-            onClick={toggleSidebarText}
-          >
-            <ListItemIcon>
-              <OpenInFullIcon />
-            </ListItemIcon>
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </Box>
+    <div className="sidenav">
+      <Box sx={{ width: '20%', height: 'auto', mx: 0 }}>
+        <List>
+          <ListItem>
+            <ListItemButton
+              selected={showApplications}
+              onClick={() => toggleOptions('applications')}
+            >
+              <ListItemIcon>
+                <ArticleIcon />
+              </ListItemIcon>
+              {showSidebarText && <ListItemText primary="Applications" />}
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton
+              selected={showNotes}
+              onClick={() => toggleOptions('notes')}
+            >
+              <ListItemIcon>
+                <EditIcon />
+              </ListItemIcon>
+              {showSidebarText && <ListItemText primary="Notes" />}
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton
+              selected={showNotifications}
+              onClick={() => toggleOptions('notifications')}
+            >
+              <ListItemIcon>
+                <NotificationsIcon />
+              </ListItemIcon>
+              {showSidebarText && <ListItemText primary="Notifications" />}
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton
+              selected={showSearchFilter}
+              onClick={() => toggleOptions('search')}
+            >
+              <ListItemIcon>
+                <SearchIcon />
+              </ListItemIcon>
+              {showSidebarText && <ListItemText primary="Search" />}
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton
+              selected={showSidebarText}
+              onClick={toggleSidebarText}
+            >
+              <ListItemIcon>
+                <OpenInFullIcon />
+              </ListItemIcon>
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Box>
+    </div>
   );
 };

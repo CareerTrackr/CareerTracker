@@ -16,3 +16,18 @@
 img {
   width: 300px;
 }
+
+.sidenav {
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  top: 100px;
+  left: 0;
+  z-index: 1;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.applications {
+  margin-left: 20%;
+}
