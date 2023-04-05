@@ -40,6 +40,8 @@ export const Applications = () => {
   
   function handleSubmit(){
     //send row data to backend here -> update rows state -> clear newRowData -> close modal
+    if(!newRowData.date) newRowData.date = `${new Date().getMonth() + 1}\/${new Date().getDate()}`;
+    if(!newRowData.status) newRowData.status = 'Applied';
     fetch('http://localhost:5174/', {
       method: 'PATCH',
       headers: {
@@ -81,6 +83,7 @@ export const Applications = () => {
                   variant="standard" 
                   label="Company Title"
                   placeholder="Company Title"
+                  onChange={onChangeHandler}
                   sx={{ paddingBottom: 2, minWidth: '330px'}}
                 />
               </Box>
