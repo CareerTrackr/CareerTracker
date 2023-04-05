@@ -5,7 +5,7 @@ import { grey } from '@mui/material/colors';
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowSelectionModel, GridTreeNodeWithRender } from '@mui/x-data-grid';
 import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { RowData } from "../../types";
+import { RowData, IdCache } from "../../types";
 
 
 export const Applications = () => {
@@ -65,7 +65,7 @@ export const Applications = () => {
   }
 
   function handleDeleteSelected(){
-    const ids: any = {};
+    const ids: IdCache = {};
     selectedIds.forEach(id => {
       ids[id] = true;
     })
