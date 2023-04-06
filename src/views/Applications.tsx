@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Box, Link, Fab, Modal, FormGroup, Button, TextField, MenuItem } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
-import { grey } from '@mui/material/colors';
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowSelectionModel, GridTreeNodeWithRender } from '@mui/x-data-grid';
+import { grey } from '@mui/material/colors';
+import AddIcon from '@mui/icons-material/Add';
 import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { RowData, IdCache } from "../../types";
@@ -60,8 +60,6 @@ export const Applications = () => {
       })
     })
     .then(() => {
-      //clear data after sending
-      setNewRowData({})
       fetchData();
     })
     .catch(err => {throw new Error(err)})
