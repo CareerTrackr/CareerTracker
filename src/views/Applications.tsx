@@ -66,6 +66,7 @@ export const Applications = () => {
   }
 
   function handleSelections(rowSelectionModel: GridRowSelectionModel){
+    //dynamically update ids selected
     setSelectedIds(rowSelectionModel);
   }
 
