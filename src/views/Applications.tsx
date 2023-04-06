@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Box, Link, Fab, Modal, FormGroup, Button, InputLabel, TextField, Select, MenuItem } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
-import { grey } from '@mui/material/colors';
+import { Box, Link, Fab, Modal, FormGroup, Button, TextField, MenuItem } from "@mui/material";
 import { DataGrid, GridColDef, GridRenderCellParams, GridTreeNodeWithRender } from '@mui/x-data-grid';
+import AddIcon from '@mui/icons-material/Add';
 import SendIcon from '@mui/icons-material/Send';
+import { grey } from '@mui/material/colors';
 import { RowData } from "../../types";
 
 
@@ -35,11 +35,16 @@ export const Applications = () => {
   }
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    //dynamically update newRowData upon changes in modal
     setNewRowData({...newRowData, [event.target.name]: event.target.value})
   }
   
   function handleSubmit(){
-    //send row data to backend here -> update rows state -> clear newRowData -> close modal
+    //close modal
+    setShowRowModal(false);
+    //clear data from state
+    setNewRowData({});
+    //send row data to update database
     fetch('http://localhost:5174/', {
       method: 'PATCH',
       headers: {
@@ -50,7 +55,8 @@ export const Applications = () => {
         newRow: newRowData,
       })
     })
-    .then(data => {
+    //refetch data
+    .then(() => {
       fetchData();
     })
     .catch(err => {throw new Error(err)})
