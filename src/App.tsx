@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { HashRouter } from 'react-router-dom';
-import { DarkMode } from '../types.js';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Box } from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
@@ -8,6 +7,7 @@ import { Homepage } from './views/Homepage.js';
 import { Applications } from './views/Applications.js';
 import { Sidebar } from "./components/Sidebar.js";
 import Header from './components/Header';
+import { DarkMode } from '../types.js';
 
 function App ({setDarkMode}: DarkMode) {
   const [showHomepage, setShowHomepage] = useState(true);
