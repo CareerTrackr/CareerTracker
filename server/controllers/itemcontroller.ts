@@ -5,9 +5,12 @@ import { ControllerFunctions } from '../../types';
 const itemController: ControllerFunctions = {
   patchDatabase: async function(req: Request, res: Response, next: NextFunction) {
     try{
+      //read from database
       const data = await fs.promises.readFile('applicationData.json', 'utf8');
       const newData = JSON.parse(data);
+      //set rows to new data
       newData.rows = req.body.rowData;
+      //write to database
       await fs.promises.writeFile('applicationData.json', JSON.stringify(newData));
       return next();
     }
@@ -18,9 +21,12 @@ const itemController: ControllerFunctions = {
 
   postDatabase: async function(req: Request, res: Response, next: NextFunction) {
     try{
+      //read from database
       const data = await fs.promises.readFile('applicationData.json', 'utf8');
       const newData = JSON.parse(data);
+      //add new data in
       newData.rows.push(req.body.newRow);
+      //write to database
       await fs.promises.writeFile('applicationData.json', JSON.stringify(newData));
       return next();
     }
@@ -31,10 +37,12 @@ const itemController: ControllerFunctions = {
 
   getDatabase: async function(req: Request, res: Response, next: NextFunction) {
     try {
+      //read from database
       const data = await fs.promises.readFile('applicationData.json', 'utf8');
       res.status(200).send(data);
     }
     catch(noFile){
+      //if file doesn't exist, write to file a template
       await fs.promises.writeFile('applicationData.json', JSON.stringify({
         columns: [
           { field: 'id', 
@@ -79,6 +87,7 @@ const itemController: ControllerFunctions = {
           { date: '3/20', status: 'Applied', company: 'Netflix', role: 'Senior SE', link: 'www.netflix.com' },
         ]
       }));
+      //read data from database after writing to it
       const data = await fs.promises.readFile('applicationData.json')
       res.locals.data = data;
       return next();
