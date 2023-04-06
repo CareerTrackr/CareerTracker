@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Box, Link, Fab, Modal, FormGroup, Button, TextField, MenuItem } from "@mui/material";
-import { DataGrid, GridColDef, GridRenderCellParams, GridTreeNodeWithRender } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
-import SendIcon from '@mui/icons-material/Send';
 import { grey } from '@mui/material/colors';
-import { RowData } from "../../types";
+import { DataGrid, GridColDef, GridRenderCellParams, GridRowSelectionModel, GridTreeNodeWithRender } from '@mui/x-data-grid';
+import SendIcon from '@mui/icons-material/Send';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { RowData, IdCache } from "../../types";
 
 
 export const Applications = () => {
   const [columns, setColumns] = useState<GridColDef[]> ([]);
-  const [rows, setRows] = useState<Object[]> ([]);
+  const [rows, setRows] = useState<RowData[]> ([]);
   const [showRowModal, setShowRowModal] = useState<boolean> (false);
   const [newRowData, setNewRowData] = useState<RowData>({});
+  const [selectedIds, setSelectedIds] = useState<GridRowSelectionModel> ([]);
 
   useEffect(() => {
     fetchData();
@@ -45,8 +47,10 @@ export const Applications = () => {
     //clear data from state
     setNewRowData({});
     //send row data to update database
+    if(!newRowData.date) newRowData.date = `${new Date().getMonth() + 1}\/${new Date().getDate()}`;
+    if(!newRowData.status) newRowData.status = 'Applied';
     fetch('http://localhost:5174/', {
-      method: 'PATCH',
+      method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json;charset=utf-8'
@@ -55,8 +59,44 @@ export const Applications = () => {
         newRow: newRowData,
       })
     })
-    //refetch data
     .then(() => {
+      //clear data after sending
+      setNewRowData({})
+      fetchData();
+    })
+    .catch(err => {throw new Error(err)})
+  }
+
+  function handleSelections(rowSelectionModel: GridRowSelectionModel){
+    setSelectedIds(rowSelectionModel);
+  }
+
+  function handleDeleteSelected(){
+    //create object to hold ids to be deleted
+    const deleteIds: IdCache = {};
+    selectedIds.forEach(id => {
+      deleteIds[id] = true;
+    })
+    //iterate over data, add to updatedDataset if not to be deleted
+    const updatedDataset = [];
+    for(let i = 0; i < rows.length; i++){
+      if(!deleteIds[rows[i].id]) updatedDataset.push(rows[i]);
+    }
+    //clear selected ids
+    setSelectedIds([]);
+    //update database
+    fetch('http://localhost:5174/', {
+      method: 'PATCH',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=utf-8'
+    },
+      body: JSON.stringify({
+        rowData: updatedDataset,
+      })
+    })
+    .then(() => {
+      //refetch data
       fetchData();
     })
     .catch(err => {throw new Error(err)})
@@ -83,10 +123,11 @@ export const Applications = () => {
                   sx={{ paddingBottom: 2, paddingRight: 1, width: 70 }} 
                 />
                 <TextField 
-                  name="companyTitle"
+                  name="company"
                   variant="standard" 
                   label="Company Title"
                   placeholder="Company Title"
+                  onChange={onChangeHandler}
                   sx={{ paddingBottom: 2, minWidth: '330px'}}
                 />
               </Box>
@@ -108,7 +149,7 @@ export const Applications = () => {
                 <MenuItem value='Declined'>Declined</MenuItem>
               </TextField>
               <TextField
-                name="roleTitle"
+                name="role"
                 variant="standard" 
                 label="Role Title"
                 onChange={onChangeHandler}
@@ -137,14 +178,23 @@ export const Applications = () => {
           </form>
         </Box>
       </Modal>
-      <Fab aria-label='add' color='primary' onClick={() => {setShowRowModal(true)}} sx={{position: 'absolute', bottom: -16, right: 16}}>
-        <AddIcon/>
-      </Fab>
+      {
+        selectedIds.length ?
+        <Fab aria-label='delete' color='error' onClick={handleDeleteSelected} sx={{position: 'absolute', bottom: -16, right: 16}}>
+          <DeleteIcon/>
+        </Fab>
+        :
+        <Fab aria-label='add' color='primary' onClick={() => {setShowRowModal(true)}} sx={{position: 'absolute', bottom: -16, right: 16}}>
+          <AddIcon/>
+        </Fab>
+      }
       <DataGrid
         rows={rows}
         columns={columns}
         checkboxSelection
         disableRowSelectionOnClick
+        onRowSelectionModelChange={handleSelections}
+        rowSelectionModel={selectedIds}
       />
     </Box>
   )
