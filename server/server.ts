@@ -1,11 +1,9 @@
 import express from 'express';
-import * as fs from 'fs';
 import { Request, Response } from "express";
 import cors from 'cors';
 const itemController = require('./controllers/itemController');
 const PORT = 5174;
 const app = express();
-
 
 app.use(cors());
 app.use(express.json());
