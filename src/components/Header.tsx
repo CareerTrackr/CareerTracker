@@ -1,48 +1,74 @@
 import { useState } from 'react';
 import logo from '../assets/CareerTracker.png';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
 
 const Header = () => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(!open);
+  const [dropdown, setDropdown] = useState(false);
+
+  const openMenu = () => {
+    setDropdown(true);
   };
 
-  const openProfile = () => {
-    // use React router to route to profile page
-    setOpen(false);
+  const closeMenu = () => {
+    setDropdown(false);
+  };
+
+  const openYourAccount = () => {
+    // link to "Your Account" page
+    closeMenu();
   };
 
   const openSettings = () => {
-    // use React router to route to settings page
-    setOpen(false);
+    // link to "Settings" page
+    closeMenu();
   };
 
-  const logOff = () => {
+  const logOut = () => {
     // log off
-    setOpen(false);
+    closeMenu();
   };
 
   return (
-    <div className="header">
-      <img src={logo} />
-      <div className="dropdown">
-        <AccountCircleIcon onClick={handleOpen}>Dropdown</AccountCircleIcon>
-        {open ? (
-          <ul className="menu">
-            <li className="menu-item">
-              <button onClick={openProfile}>Your Profile</button>
-            </li>
-            <li className="menu-item">
-              <button onClick={openSettings}>Settings</button>
-            </li>
-            <li className="menu-item">
-              <button onClick={logOff}>Log off</button>
-            </li>
-          </ul>
-        ) : null}
-      </div>
-    </div>
+    <AppBar position="static">
+      <Toolbar>
+        <Box sx={{ flexGrow: 1 }}>
+          <img src={logo} />
+        </Box>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={openMenu}
+        >
+          <AccountCircleIcon />
+        </IconButton>
+        <Menu
+          sx={{ mt: '45px' }}
+          id="menu-appbar"
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={dropdown}
+          onClose={closeMenu}
+        >
+          <MenuItem onClick={openYourAccount}>Your account</MenuItem>
+          <MenuItem onClick={openSettings}>Settings</MenuItem>
+          <MenuItem onClick={logOut}>Log out</MenuItem>
+        </Menu>
+      </Toolbar>
+    </AppBar>
   );
 };
 
