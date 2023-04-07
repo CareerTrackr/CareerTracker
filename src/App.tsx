@@ -9,7 +9,7 @@ import { Sidebar } from './components/Sidebar.js';
 import Header from './components/Header';
 import { DarkMode } from '../types.js';
 
-function App({ setDarkMode }: DarkMode) {
+function App({ setDarkMode, darkMode }: DarkMode) {
   const [showHomepage, setShowHomepage] = useState(true);
   const [showApplications, setShowApplications] = useState(true);
   const [showNotes, setShowNotes] = useState(false);
@@ -22,7 +22,7 @@ function App({ setDarkMode }: DarkMode) {
     </div>
   ) : (
     <Box>
-      <Header />
+      <Header setDarkMode={setDarkMode} darkMode={darkMode} />
       <Box sx={{ display: 'flex', flexGrow: 1 }}>
         <Sidebar
           showApplications={showApplications}
@@ -53,7 +53,7 @@ function WrappedApp() {
     <HashRouter>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        <App setDarkMode={setDarkMode} />
+        <App setDarkMode={setDarkMode} darkMode={darkMode} />
       </ThemeProvider>
     </HashRouter>
   );

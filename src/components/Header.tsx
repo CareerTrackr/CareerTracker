@@ -7,8 +7,11 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
+import { DarkMode } from '../../types.js';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
-const Header = () => {
+const Header = ({ setDarkMode, darkMode }: DarkMode) => {
   const [dropdown, setDropdown] = useState(false);
 
   const openMenu = () => {
@@ -40,6 +43,11 @@ const Header = () => {
         <Box sx={{ flexGrow: 1 }}>
           <img src={logo} />
         </Box>
+
+        <IconButton onClick={() => setDarkMode(!darkMode)}>
+          {darkMode ? <Brightness7Icon /> : <DarkModeIcon />}
+        </IconButton>
+
         <IconButton
           aria-label="account of current user"
           aria-controls="menu-appbar"
