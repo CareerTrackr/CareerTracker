@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Box, Link, Fab, Modal, FormGroup, Button, TextField, MenuItem } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
-import { grey } from '@mui/material/colors';
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowSelectionModel, GridTreeNodeWithRender } from '@mui/x-data-grid';
+import { grey } from '@mui/material/colors';
+import AddIcon from '@mui/icons-material/Add';
 import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { RowData, IdCache } from "../../types";
@@ -37,11 +37,14 @@ export const Applications = () => {
   }
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    //dynamically update newRowData upon changes in modal
     setNewRowData({...newRowData, [event.target.name]: event.target.value})
   }
   
   function handleSubmit(){
-    //send row data to backend here -> update rows state -> clear newRowData -> close modal
+    //close modal
+    setShowRowModal(false);
+    //send row data to update database
     if(!newRowData.date) newRowData.date = `${new Date().getMonth() + 1}\/${new Date().getDate()}`;
     if(!newRowData.status) newRowData.status = 'Applied';
     fetch('http://localhost:5174/', {
@@ -55,14 +58,15 @@ export const Applications = () => {
       })
     })
     .then(() => {
-      //clear data after sending
-      setNewRowData({})
+      //clear data from state
+      setNewRowData({});
       fetchData();
     })
     .catch(err => {throw new Error(err)})
   }
 
   function handleSelections(rowSelectionModel: GridRowSelectionModel){
+    //dynamically update ids selected
     setSelectedIds(rowSelectionModel);
   }
 
@@ -164,6 +168,7 @@ export const Applications = () => {
                 variant="outlined"
                 placeholder="Notes here..."
                 onChange={onChangeHandler}
+                maxRows={10}
                 sx={{ paddingBottom: 2, minWidth: '400px' }}
               />
               <Button variant="contained" onClick={handleSubmit} startIcon={<SendIcon/>}>

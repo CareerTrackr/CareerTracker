@@ -1,18 +1,11 @@
-import React from 'react';
-import { PageOptions } from '../../types';
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from '@mui/material';
+import React from "react";
+import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import ArticleIcon from '@mui/icons-material/Article';
 import EditIcon from '@mui/icons-material/Edit';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import SearchIcon from '@mui/icons-material/Search';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
+import { PageOptions } from "../../types";
 
 export const Sidebar: React.FunctionComponent<PageOptions> = ({
   showApplications,
@@ -53,7 +46,7 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({
     }
   }
 
-  function toggleSidebarText(input: boolean): void {
+  function toggleSidebarText(): void {
     setShowSidebarText(!showSidebarText);
   }
 
@@ -93,10 +86,10 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({
           </ListItemButton>
         </ListItem>
         <ListItem>
-           <ListItemButton
-             selected={showSidebarText}
-             onClick={toggleSidebarText}
-           >
+          <ListItemButton
+            selected={showSidebarText}
+            onClick={toggleSidebarText}
+          >
              <ListItemIcon>
                <OpenInFullIcon />
              </ListItemIcon>
