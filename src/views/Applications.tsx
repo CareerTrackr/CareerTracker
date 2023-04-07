@@ -44,8 +44,6 @@ export const Applications = () => {
   function handleSubmit(){
     //close modal
     setShowRowModal(false);
-    //clear data from state
-    setNewRowData({});
     //send row data to update database
     if(!newRowData.date) newRowData.date = `${new Date().getMonth() + 1}\/${new Date().getDate()}`;
     if(!newRowData.status) newRowData.status = 'Applied';
@@ -60,6 +58,8 @@ export const Applications = () => {
       })
     })
     .then(() => {
+      //clear data from state
+      setNewRowData({});
       fetchData();
     })
     .catch(err => {throw new Error(err)})
@@ -168,6 +168,7 @@ export const Applications = () => {
                 variant="outlined"
                 placeholder="Notes here..."
                 onChange={onChangeHandler}
+                maxRows={10}
                 sx={{ paddingBottom: 2, minWidth: '400px' }}
               />
               <Button variant="contained" onClick={handleSubmit} startIcon={<SendIcon/>}>
