@@ -9,34 +9,29 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 
 const Header = () => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [dropdown, setDropdown] = useState(false);
 
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+  const openMenu = () => {
+    setDropdown(true);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(!open);
+  const closeMenu = () => {
+    setDropdown(false);
   };
 
-  const openProfile = () => {
-    // use React router to route to profile page
-    setOpen(false);
+  const openYourAccount = () => {
+    // link to "Your Account" page
+    closeMenu();
   };
 
   const openSettings = () => {
-    // use React router to route to settings page
-    setOpen(false);
+    // link to "Settings" page
+    closeMenu();
   };
 
-  const logOff = () => {
+  const logOut = () => {
     // log off
-    setOpen(false);
+    closeMenu();
   };
 
   return (
@@ -48,11 +43,10 @@ const Header = () => {
             <Toolbar>
               <div>
                 <IconButton
-                  size="large"
                   aria-label="account of current user"
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
-                  onClick={handleMenu}
+                  onClick={openMenu}
                   color="inherit"
                 >
                   <AccountCircleIcon />
@@ -60,7 +54,6 @@ const Header = () => {
                 <Menu
                   sx={{ mt: '45px' }}
                   id="menu-appbar"
-                  anchorEl={anchorEl}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'right',
@@ -70,12 +63,12 @@ const Header = () => {
                     vertical: 'top',
                     horizontal: 'right',
                   }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
+                  open={dropdown}
+                  onClose={closeMenu}
                 >
-                  <MenuItem onClick={handleClose}>Your account</MenuItem>
-                  <MenuItem onClick={handleClose}>Settings</MenuItem>
-                  <MenuItem onClick={handleClose}>Log off</MenuItem>
+                  <MenuItem onClick={openYourAccount}>Your account</MenuItem>
+                  <MenuItem onClick={openSettings}>Settings</MenuItem>
+                  <MenuItem onClick={logOut}>Log out</MenuItem>
                 </Menu>
               </div>
             </Toolbar>
