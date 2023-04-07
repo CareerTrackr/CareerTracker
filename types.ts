@@ -21,6 +21,7 @@ export interface showHomepageOptions {
 
 export interface DarkMode {
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+  darkMode: boolean;
 }
 
 export interface RowData {
