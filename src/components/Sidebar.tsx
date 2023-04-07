@@ -27,12 +27,12 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({
 }) => {
   const [checked, setChecked] = useState(false);
   const [width, setWidth] = useState('80px');
-  const [sidebarText, setSidebarText] = useState(false);
+  // const [sidebarText, setSidebarText] = useState(false);
 
   const handleChange = () => {
     setChecked(!checked);
     checked ? setWidth('80px') : setWidth('300px');
-    setSidebarText(!sidebarText);
+    // setSidebarText(!sidebarText);
   };
 
   function toggleOptions(input: String): void {
@@ -73,7 +73,7 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({
             <ListItemIcon>
               <ArticleIcon />
             </ListItemIcon>
-            {sidebarText ? <ListItemText primary="Applications" /> : null}
+            {checked ? <ListItemText primary="Applications" /> : null}
           </ListItemButton>
         </ListItem>
         <ListItem>
@@ -84,7 +84,7 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({
             <ListItemIcon>
               <EditIcon />
             </ListItemIcon>
-            {sidebarText ? <ListItemText primary="Notes" /> : null}
+            {checked ? <ListItemText primary="Notes" /> : null}
           </ListItemButton>
         </ListItem>
         <ListItem>
@@ -95,7 +95,7 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({
             <ListItemIcon>
               <NotificationsIcon />
             </ListItemIcon>
-            {sidebarText ? <ListItemText primary="Notifications" /> : null}
+            {checked ? <ListItemText primary="Notifications" /> : null}
           </ListItemButton>
         </ListItem>
         <ListItem>
@@ -106,13 +106,13 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({
             <ListItemIcon>
               <SearchIcon />
             </ListItemIcon>
-            {sidebarText && <ListItemText primary="Search" />}
+            {checked && <ListItemText primary="Search" />}
           </ListItemButton>
         </ListItem>
         <ListItem>
           <FormControlLabel
             control={<Switch checked={checked} onChange={handleChange} />}
-            // label={checked ? 'Collapse' : 'Expand'}
+            label={checked ? 'Collapse' : 'Expand'}
           />
         </ListItem>
       </List>
