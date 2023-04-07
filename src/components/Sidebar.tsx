@@ -1,5 +1,4 @@
-import React from 'react';
-import { PageOptions } from '../../types';
+import React, { useState } from 'react';
 import {
   Box,
   List,
@@ -12,7 +11,9 @@ import ArticleIcon from '@mui/icons-material/Article';
 import EditIcon from '@mui/icons-material/Edit';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import SearchIcon from '@mui/icons-material/Search';
-import OpenInFullIcon from '@mui/icons-material/OpenInFull';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { PageOptions } from '../../types';
 
 export const Sidebar: React.FunctionComponent<PageOptions> = ({
   showApplications,
@@ -23,9 +24,15 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({
   setShowNotifications,
   showSearchFilter,
   setShowSearchFilter,
-  showSidebarText,
-  setShowSidebarText,
 }) => {
+  const [checked, setChecked] = useState(false);
+  const [width, setWidth] = useState('80px');
+
+  const handleChange = () => {
+    setChecked(!checked);
+    checked ? setWidth('80px') : setWidth('300px');
+  };
+
   function toggleOptions(input: String): void {
     if (input === 'applications') {
       setShowApplications(true);
@@ -53,56 +60,60 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({
     }
   }
 
-  function toggleSidebarText(input: boolean): void {
-    setShowSidebarText(!showSidebarText);
-  }
-
   return (
-    <Box sx={{width: "300px", height: "auto", mx: 0}}>
+    <Box sx={{ width: width, height: 'auto', mx: 0 }}>
       <List>
         <ListItem>
-          <ListItemButton selected={showApplications} onClick={() => toggleOptions("applications")}>
+          <ListItemButton
+            selected={showApplications}
+            onClick={() => toggleOptions('applications')}
+          >
             <ListItemIcon>
-              <ArticleIcon/>
+              <ArticleIcon />
             </ListItemIcon>
-            <ListItemText primary="Applications"/>
+            {checked ? <ListItemText primary="Applications" /> : null}
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton selected={showNotes} onClick={() => toggleOptions("notes")}>
+          <ListItemButton
+            selected={showNotes}
+            onClick={() => toggleOptions('notes')}
+          >
             <ListItemIcon>
-              <EditIcon/>
+              <EditIcon />
             </ListItemIcon>
-            <ListItemText primary="Notes"/>
+            {checked ? <ListItemText primary="Notes" /> : null}
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton selected={showNotifications} onClick={() => toggleOptions("notifications")}>
+          <ListItemButton
+            selected={showNotifications}
+            onClick={() => toggleOptions('notifications')}
+          >
             <ListItemIcon>
-              <NotificationsIcon/>
+              <NotificationsIcon />
             </ListItemIcon>
-            <ListItemText primary="Notifications"/>
+            {checked ? <ListItemText primary="Notifications" /> : null}
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <ListItemButton selected={showSearchFilter} onClick={() => toggleOptions("search")}>
+          <ListItemButton
+            selected={showSearchFilter}
+            onClick={() => toggleOptions('search')}
+          >
             <ListItemIcon>
-              <SearchIcon/>
+              <SearchIcon />
             </ListItemIcon>
-            {showSidebarText && <ListItemText primary="Search" />}
+            {checked && <ListItemText primary="Search" />}
           </ListItemButton>
         </ListItem>
         <ListItem>
-           <ListItemButton
-             selected={showSidebarText}
-             onClick={toggleSidebarText}
-           >
-             <ListItemIcon>
-               <OpenInFullIcon />
-             </ListItemIcon>
-           </ListItemButton>
-         </ListItem>
+          <FormControlLabel
+            control={<Switch checked={checked} onChange={handleChange} />}
+            label={checked ? 'Collapse' : 'Expand'}
+          />
+        </ListItem>
       </List>
     </Box>
-  )
-}
+  );
+};

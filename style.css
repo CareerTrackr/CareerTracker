@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.header {
+/* .header {
   background-color: black;
   color: white;
   font-size: 30px;
@@ -34,4 +34,5 @@ img {
 
 .applications {
   margin-left: 20%;
-}
+
+} */
