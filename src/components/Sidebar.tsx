@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { PageOptions } from '../../types';
+import React, { useState } from 'react';
 import {
   Box,
   List,
@@ -14,6 +13,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import SearchIcon from '@mui/icons-material/Search';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { PageOptions } from '../../types';
 
 export const Sidebar: React.FunctionComponent<PageOptions> = ({
   showApplications,
@@ -27,12 +27,10 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({
 }) => {
   const [checked, setChecked] = useState(false);
   const [width, setWidth] = useState('80px');
-  // const [sidebarText, setSidebarText] = useState(false);
 
   const handleChange = () => {
     setChecked(!checked);
     checked ? setWidth('80px') : setWidth('300px');
-    // setSidebarText(!sidebarText);
   };
 
   function toggleOptions(input: String): void {

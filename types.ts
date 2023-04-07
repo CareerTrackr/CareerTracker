@@ -1,3 +1,9 @@
+export interface ControllerFunctions {
+  patchDatabase: Function;
+  postDatabase: Function;
+  getDatabase: Function;
+}
+
 export interface PageOptions {
   showApplications: boolean;
   showNotes: boolean;

@@ -32,6 +32,7 @@ export const Homepage: React.FunctionComponent<showHomepageOptions> = ({setShowH
   ]
 
   useEffect(() => {
+    //show login button after 2 seconds
     setTimeout(() => {
       setShowLogin(true);
     }, 2000)
@@ -56,6 +57,7 @@ export const Homepage: React.FunctionComponent<showHomepageOptions> = ({setShowH
   }));
 
   function handleLogin() {
+    //hide homepage upon logging in
     setShowHomepage(false);
   }
 
