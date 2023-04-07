@@ -35,47 +35,40 @@ const Header = () => {
   };
 
   return (
-    <div className="header">
-      <img src={logo} />
-      <div className="dropdown">
+    <AppBar position="static">
+      <Toolbar>
         <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static">
-            <Toolbar>
-              <div>
-                <IconButton
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={openMenu}
-                  color="inherit"
-                >
-                  <AccountCircleIcon />
-                </IconButton>
-                <Menu
-                  sx={{ mt: '45px' }}
-                  id="menu-appbar"
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={dropdown}
-                  onClose={closeMenu}
-                >
-                  <MenuItem onClick={openYourAccount}>Your account</MenuItem>
-                  <MenuItem onClick={openSettings}>Settings</MenuItem>
-                  <MenuItem onClick={logOut}>Log out</MenuItem>
-                </Menu>
-              </div>
-            </Toolbar>
-          </AppBar>
+          <img src={logo} />
         </Box>
-      </div>
-    </div>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={openMenu}
+        >
+          <AccountCircleIcon />
+        </IconButton>
+        <Menu
+          sx={{ mt: '45px' }}
+          id="menu-appbar"
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={dropdown}
+          onClose={closeMenu}
+        >
+          <MenuItem onClick={openYourAccount}>Your account</MenuItem>
+          <MenuItem onClick={openSettings}>Settings</MenuItem>
+          <MenuItem onClick={logOut}>Log out</MenuItem>
+        </Menu>
+      </Toolbar>
+    </AppBar>
   );
 };
 
