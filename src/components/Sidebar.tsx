@@ -15,7 +15,7 @@ import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { PageOptions } from '../../types';
 
-export const Sidebar: React.FunctionComponent<PageOptions> = ({
+export default function Sidebar({
   showApplications,
   setShowApplications,
   showNotes,
@@ -24,16 +24,16 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({
   setShowNotifications,
   showSearchFilter,
   setShowSearchFilter,
-}) => {
+}: PageOptions): JSX.Element {
   const [checked, setChecked] = useState(false);
   const [width, setWidth] = useState('80px');
 
   const handleChange = () => {
     setChecked(!checked);
-    checked ? setWidth('80px') : setWidth('300px');
+    return checked ? setWidth('80px') : setWidth('300px');
   };
 
-  function toggleOptions(input: String): void {
+  function toggleOptions(input: string): void {
     if (input === 'applications') {
       setShowApplications(true);
       setShowNotes(false);
@@ -61,7 +61,7 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({
   }
 
   return (
-    <Box sx={{ width: width, height: 'auto', mx: 0 }}>
+    <Box sx={{ width, height: 'auto', mx: 0 }}>
       <List>
         <ListItem>
           <ListItemButton
@@ -116,4 +116,4 @@ export const Sidebar: React.FunctionComponent<PageOptions> = ({
       </List>
     </Box>
   );
-};
+}

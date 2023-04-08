@@ -18,7 +18,8 @@
   },
   "include": [
     ".eslintrc.cjs",
-    "src"
+    "src",
+    "server",
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

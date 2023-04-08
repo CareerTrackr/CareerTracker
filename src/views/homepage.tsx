@@ -1,12 +1,14 @@
-import React, {useState, useEffect} from "react";
-import { Box, Fade, Typography, Button } from "@mui/material";
-import { ButtonProps } from "@mui/material/Button";
+import React, { useState, useEffect } from 'react';
+import { Box, Fade, Typography, Button } from '@mui/material';
+import { ButtonProps } from '@mui/material/Button';
 import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
 import LoginIcon from '@mui/icons-material/Login';
 import { indigo } from '@mui/material/colors';
-import { showHomepageOptions } from "../../types";
+import { ShowHomepageOptions } from '../../types';
 
-export const Homepage: React.FunctionComponent<showHomepageOptions> = ({setShowHomepage}) => {
+export default function Homepage({
+  setShowHomepage,
+}: ShowHomepageOptions): JSX.Element {
   const [showLogin, setShowLogin] = useState(false);
 
   const shortQuotes = [
@@ -28,65 +30,79 @@ export const Homepage: React.FunctionComponent<showHomepageOptions> = ({setShowH
     "'You don't fail until you give up.' - Jess Davila",
     "'You do you.' - Mariko Iwata",
     "'It's who you know. So make yourself someone they know.' - Victor He",
-    "'Better than late than never.' - Pei Chu"
-  ]
+    "'Better than late than never.' - Pei Chu",
+  ];
 
   useEffect(() => {
-    //show login button after 2 seconds
+    // show login button after 2 seconds
     setTimeout(() => {
       setShowLogin(true);
-    }, 2000)
-  }, [])
+    }, 2000);
+  }, []);
 
   const welcomeTheme = createTheme({
     typography: {
-      fontFamily: [
-        'Alkatra',
-        'cursive',
-      ].join(','),
-    }
-  })
+      fontFamily: ['Alkatra', 'cursive'].join(','),
+    },
+  });
 
   const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
     color: theme.palette.getContrastText(indigo[500]),
-    borderColor: "white",
+    borderColor: 'white',
     '&:hover': {
       backgroundColor: indigo[800],
-      borderColor: "white"
+      borderColor: 'white',
     },
   }));
 
   function handleLogin() {
-    //hide homepage upon logging in
+    // hide homepage upon logging in
     setShowHomepage(false);
   }
 
   return (
-    
-    <Box sx={{display: "flex", height: "100vh", flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
+    <Box
+      sx={{
+        display: 'flex',
+        height: '100vh',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <Box className="diagonal-hero-bg">
         <Box className="stars">
-          <Box className="small"></Box>
-          <Box className="medium"></Box>
-          <Box className="big"></Box>
+          <Box className="small" />
+          <Box className="medium" />
+          <Box className="big" />
         </Box>
       </Box>
       <ThemeProvider theme={welcomeTheme}>
-        <Fade in={true} timeout={2000}>
-          <Typography variant="h1">
-            Welcome
-          </Typography>
+        <Fade in timeout={2000}>
+          <Typography variant="h1">Welcome</Typography>
         </Fade>
         {showLogin ? (
-          <Fade in={true} timeout={2000}>
-            <ColorButton size="large" variant="outlined" startIcon={<LoginIcon/>} sx={{ textTransform: 'none' }} onClick={handleLogin}>
+          <Fade in timeout={2000}>
+            <ColorButton
+              size="large"
+              variant="outlined"
+              startIcon={<LoginIcon />}
+              sx={{ textTransform: 'none' }}
+              onClick={() => handleLogin()}
+            >
               <Typography variant="h6">
                 {shortQuotes[Math.floor(Math.random() * shortQuotes.length)]}
               </Typography>
             </ColorButton>
           </Fade>
-        ) : <Fade in={false} ><ColorButton size="large"><Typography variant="h6">InvisPlaceholder</Typography></ColorButton></Fade>}
+        ) : (
+          <Fade in={false}>
+            <ColorButton size="large">
+              <Typography variant="h6">InvisPlaceholder</Typography>
+            </ColorButton>
+          </Fade>
+        )}
       </ThemeProvider>
     </Box>
-  )
+  );
 }

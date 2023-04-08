@@ -1,7 +1,7 @@
-import express from 'express';
-import { Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import itemcontroller from './controllers/itemcontroller.js';
+
 const PORT = 5174;
 const app = express();
 
@@ -32,4 +32,5 @@ app.get(
   }
 );
 
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+// app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+app.listen(PORT);

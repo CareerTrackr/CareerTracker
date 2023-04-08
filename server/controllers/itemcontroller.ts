@@ -1,18 +1,18 @@
 import * as fs from 'fs';
 import { Request, Response, NextFunction } from 'express';
 
-const patchDatabase = async function (
+const patchDatabase = async function patchDatabase(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   try {
-    //read from database
+    // read from database
     const data = await fs.promises.readFile('applicationData.json', 'utf8');
     const newData = JSON.parse(data);
-    //set rows to new data
+    // set rows to new data
     newData.rows = req.body.rowData;
-    //write to database
+    // write to database
     await fs.promises.writeFile(
       'applicationData.json',
       JSON.stringify(newData)
@@ -27,18 +27,18 @@ const patchDatabase = async function (
   }
 };
 
-const postDatabase = async function (
+const postDatabase = async function postDatabase(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   try {
-    //read from database
+    // read from database
     const data = await fs.promises.readFile('applicationData.json', 'utf8');
     const newData = JSON.parse(data);
-    //add new data in
+    // add new data in
     newData.rows.push(req.body.newRow);
-    //write to database
+    // write to database
     await fs.promises.writeFile(
       'applicationData.json',
       JSON.stringify(newData)
@@ -53,17 +53,18 @@ const postDatabase = async function (
   }
 };
 
-const getDatabase = async function (
+const getDatabase = async function getDatabase(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   try {
-    //read from database
+    // read from database
     const data = await fs.promises.readFile('applicationData.json', 'utf8');
-    res.status(200).send(data);
+    res.locals.data = data;
+    return next();
   } catch (noFile) {
-    //if file doesn't exist, write to file a template
+    // if file doesn't exist, write to file a template
     await fs.promises.writeFile(
       'applicationData.json',
       JSON.stringify({
@@ -104,7 +105,7 @@ const getDatabase = async function (
         rows: [],
       })
     );
-    //read data from database after writing to it
+    // read data from database after writing to it
     const data = await fs.promises.readFile('applicationData.json');
     res.locals.data = data;
     return next();

@@ -1,11 +1,12 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import React, { useState } from 'react';
 import { HashRouter } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Homepage } from './views/Homepage.js';
-import { Applications } from './views/Applications.js';
-import { Sidebar } from './components/Sidebar.js';
+import Homepage from './views/Homepage.js';
+import Applications from './views/Applications.js';
+import Sidebar from './components/Sidebar.js';
 import Header from './components/Header';
 import { DarkMode } from '../types.js';
 
@@ -18,7 +19,7 @@ function App({ setDarkMode, darkMode }: DarkMode) {
 
   return showHomepage ? (
     <div>
-      <Homepage setShowHomepage={setShowHomepage}></Homepage>
+      <Homepage setShowHomepage={setShowHomepage} />
     </div>
   ) : (
     <Box>
@@ -33,7 +34,7 @@ function App({ setDarkMode, darkMode }: DarkMode) {
           setShowNotifications={setShowNotifications}
           showSearchFilter={showSearchFilter}
           setShowSearchFilter={setShowSearchFilter}
-        ></Sidebar>
+        />
         {showApplications ? <Applications /> : <></>}
       </Box>
     </Box>

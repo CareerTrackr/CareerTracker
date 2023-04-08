@@ -14,11 +14,12 @@ module.exports = {
   overrides: [],
   parser: '@typescript-eslint/parser',
   parserOptions: {
+    tsconfigRootDir: __dirname,
     ecmaVersion: 'latest',
     sourceType: 'module',
     project: './tsconfig.json',
   },
-  ignorePAtterns: ["style.css"],
+  ignorePatterns: ['vite.config.ts'],
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
     'react/react-in-jsx-scope': 0,
