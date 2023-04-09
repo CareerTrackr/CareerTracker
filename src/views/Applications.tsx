@@ -1,3 +1,7 @@
+/* eslint-disable react/jsx-no-bind */
+// above rule is based on this: https://stackoverflow.com/questions/36677733/why-shouldnt-jsx-props-use-arrow-functions-or-bind
+// without disabling, would bring up an eslint error for onChange(someFunc), stating: "JSX props should not use functions"
+// apparently this issue has been fixed, so disabling the rule
 import React, { useEffect, useState } from 'react';
 import {
   Box,
@@ -22,29 +26,27 @@ import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { RowData, IdCache } from '../../types';
 
-export const Applications = () => {
+export default function Applications(): JSX.Element {
   const [columns, setColumns] = useState<GridColDef[]>([]);
   const [rows, setRows] = useState<RowData[]>([]);
   const [showRowModal, setShowRowModal] = useState<boolean>(false);
   const [newRowData, setNewRowData] = useState<RowData>({});
   const [selectedIds, setSelectedIds] = useState<GridRowSelectionModel>([]);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   function fetchData() {
     fetch('http://localhost:5174/')
       .then((data) => data.json())
       .then((data) => {
-        //set renderCells as necessary
-        for (let i = 0; i < data.columns.length; i++) {
-          if (data.columns[i].renderCellLink)
-            data.columns[i].renderCell = (
+        const newData = data;
+        // set renderCells as necessary
+        for (let i = 0; i < newData.columns.length; i += 1) {
+          if (newData.columns[i].renderCellLink)
+            newData.columns[i].renderCell = (
               params: GridRenderCellParams<
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 any,
-                any,
-                any,
+                unknown,
+                unknown,
                 GridTreeNodeWithRender
               >
             ) => (
@@ -57,26 +59,26 @@ export const Applications = () => {
               </Link>
             );
         }
-        setColumns(data.columns);
-        //assign each piece of data an id to keep track of the number of applications dynamically
-        for (let i = 1; i <= data.rows.length; i++) {
-          data.rows[i - 1].id = i;
+        setColumns(newData.columns);
+        // assign each piece of data an id to keep track of the number of applications dynamically
+        for (let i = 1; i <= newData.rows.length; i += 1) {
+          newData.rows[i - 1].id = i;
         }
         setRows(data.rows);
       });
   }
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    //dynamically update newRowData upon changes in modal
+    // dynamically update newRowData upon changes in modal
     setNewRowData({ ...newRowData, [event.target.name]: event.target.value });
   }
 
   function handleSubmit() {
-    //close modal
+    // close modal
     setShowRowModal(false);
-    //send row data to update database
+    // send row data to update database
     if (!newRowData.date)
-      newRowData.date = `${new Date().getMonth() + 1}\/${new Date().getDate()}`;
+      newRowData.date = `${new Date().getMonth() + 1}/${new Date().getDate()}`;
     if (!newRowData.status) newRowData.status = 'Applied';
     fetch('http://localhost:5174/', {
       method: 'POST',
@@ -89,7 +91,7 @@ export const Applications = () => {
       }),
     })
       .then(() => {
-        //clear data from state
+        // clear data from state
         setNewRowData({});
         fetchData();
       })
@@ -99,25 +101,24 @@ export const Applications = () => {
   }
 
   function handleSelections(rowSelectionModel: GridRowSelectionModel) {
-    //dynamically update ids selected
+    // dynamically update ids selected
     setSelectedIds(rowSelectionModel);
   }
 
   function handleDeleteSelected() {
-    //create object to hold ids to be deleted
+    // create object to hold ids to be deleted
     const deleteIds: IdCache = {};
     selectedIds.forEach((id) => {
       deleteIds[id] = true;
     });
-    //iterate over data, add to updatedDataset if not to be deleted
+    // iterate over data, add to updatedDataset if not to be deleted
     const updatedDataset = [];
-    for (let i = 0; i < rows.length; i++) {
+    for (let i = 0; i < rows.length; i += 1) {
       if (!deleteIds[rows[i].id]) updatedDataset.push(rows[i]);
-      console.log(updatedDataset);
     }
-    //clear selected ids
+    // clear selected ids
     setSelectedIds([]);
-    //update database
+    // update database
     fetch('http://localhost:5174/', {
       method: 'PATCH',
       headers: {
@@ -129,13 +130,17 @@ export const Applications = () => {
       }),
     })
       .then(() => {
-        //refetch data
+        // refetch data
         fetchData();
       })
       .catch((err) => {
         throw new Error(err);
       });
   }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Box sx={{ height: '100vh', width: '100%' }}>
@@ -146,11 +151,12 @@ export const Applications = () => {
       >
         <Box sx={{ position: 'center' }}>
           <iframe
+            title="Fetch Request"
             name="hiddenFrame"
             id="hiddenFrame"
             width="0px"
             height="0px"
-          ></iframe>
+          />
           <form action="/submitModal" target="hiddenFrame">
             <FormGroup
               sx={{
@@ -168,7 +174,7 @@ export const Applications = () => {
                   label="Date"
                   defaultValue={`${
                     new Date().getMonth() + 1
-                  }\/${new Date().getDate()}`}
+                  }/${new Date().getDate()}`}
                   onChange={onChangeHandler}
                   sx={{ paddingBottom: 2, paddingRight: 1, width: 70 }}
                 />
@@ -184,7 +190,7 @@ export const Applications = () => {
               <TextField
                 name="status"
                 label="Status"
-                select={true}
+                select
                 defaultValue="Applied"
                 onChange={onChangeHandler}
               >
@@ -216,7 +222,7 @@ export const Applications = () => {
               />
               <TextField
                 name="notes"
-                multiline={true}
+                multiline
                 label="Notes"
                 variant="outlined"
                 placeholder="Notes here..."
@@ -226,7 +232,7 @@ export const Applications = () => {
               />
               <Button
                 variant="contained"
-                onClick={handleSubmit}
+                onClick={() => handleSubmit()}
                 startIcon={<SendIcon />}
               >
                 Submit
@@ -239,7 +245,7 @@ export const Applications = () => {
         <Fab
           aria-label="delete"
           color="error"
-          onClick={handleDeleteSelected}
+          onClick={() => handleDeleteSelected()}
           sx={{ position: 'absolute', bottom: -16, right: 16 }}
         >
           <DeleteIcon />
@@ -261,9 +267,9 @@ export const Applications = () => {
         columns={columns}
         checkboxSelection
         disableRowSelectionOnClick
-        onRowSelectionModelChange={handleSelections}
+        onRowSelectionModelChange={(event) => handleSelections(event)}
         rowSelectionModel={selectedIds}
       />
     </Box>
   );
-};
+}

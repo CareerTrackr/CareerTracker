@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 export interface ControllerFunctions {
   patchDatabase: Function;
   postDatabase: Function;
@@ -15,7 +16,7 @@ export interface PageOptions {
   setShowSearchFilter: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface showHomepageOptions {
+export interface ShowHomepageOptions {
   setShowHomepage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

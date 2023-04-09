@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import logo from '../assets/CareerTracker.png';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
@@ -7,11 +6,12 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import { DarkMode } from '../../types.js';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { DarkMode } from '../../types.js';
+import logo from '../assets/CareerTracker.png';
 
-const Header = ({ setDarkMode, darkMode }: DarkMode) => {
+function Header({ setDarkMode, darkMode }: DarkMode) {
   const [dropdown, setDropdown] = useState(false);
 
   const openMenu = () => {
@@ -41,7 +41,7 @@ const Header = ({ setDarkMode, darkMode }: DarkMode) => {
     <AppBar position="static">
       <Toolbar>
         <Box sx={{ flexGrow: 1 }}>
-          <img src={logo} />
+          <img src={logo} alt="logo" />
         </Box>
 
         <IconButton onClick={() => setDarkMode(!darkMode)}>
@@ -78,6 +78,6 @@ const Header = ({ setDarkMode, darkMode }: DarkMode) => {
       </Toolbar>
     </AppBar>
   );
-};
+}
 
 export default Header;
