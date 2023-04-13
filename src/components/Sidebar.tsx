@@ -6,6 +6,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Collapse
 } from '@mui/material';
 import ArticleIcon from '@mui/icons-material/Article';
 import EditIcon from '@mui/icons-material/Edit';
@@ -26,11 +27,11 @@ export default function Sidebar({
   setShowSearchFilter,
 }: PageOptions): JSX.Element {
   const [checked, setChecked] = useState(false);
-  const [width, setWidth] = useState('80px');
+  const [width, setWidth] = useState('90px');
 
   const handleChange = () => {
     setChecked(!checked);
-    return checked ? setWidth('80px') : setWidth('300px');
+    return checked ? setWidth('90px') : setWidth('300px');
   };
 
   function toggleOptions(input: string): void {
@@ -61,63 +62,78 @@ export default function Sidebar({
   }
 
   return (
-    <Box sx={{ width, height: 'auto', mx: 0 }}>
+    <Box sx={{ height: 'auto' }}>
       <List>
-        <ListItem>
+        {/* <ListItem>
           <ListItemButton
             selected={showApplications}
             onClick={() => toggleOptions('applications')}
+            sx={{ height: '48px' }}
           >
             <ListItemIcon>
               <ArticleIcon />
             </ListItemIcon>
-            {checked ? <ListItemText primary="Applications" /> : null}
+            <Collapse orientation="horizontal" in={checked}>
+              <ListItemText primary="Applications" />
+            </Collapse>
           </ListItemButton>
         </ListItem>
         <ListItem>
           <ListItemButton
             selected={showNotes}
             onClick={() => toggleOptions('notes')}
+            sx={{ height: '48px' }}
           >
             <ListItemIcon>
               <EditIcon />
             </ListItemIcon>
-            {checked ? <ListItemText primary="Notes" /> : null}
+            <Collapse orientation="horizontal" in={checked}>
+              <ListItemText primary="Notes" />
+            </Collapse>
           </ListItemButton>
         </ListItem>
         <ListItem>
           <ListItemButton
             selected={showNotifications}
             onClick={() => toggleOptions('notifications')}
+            sx={{ height: '48px' }}
           >
             <ListItemIcon>
               <NotificationsIcon />
             </ListItemIcon>
-            {checked ? <ListItemText primary="Notifications" /> : null}
+            <Collapse orientation="horizontal" in={checked}>
+              <ListItemText primary="Notifications" />
+            </Collapse>
           </ListItemButton>
         </ListItem>
         <ListItem>
           <ListItemButton
             selected={showSearchFilter}
             onClick={() => toggleOptions('search')}
+            sx={{ height: '48px' }}
           >
             <ListItemIcon>
               <SearchIcon />
             </ListItemIcon>
-            {checked && <ListItemText primary="Search" />}
+            <Collapse orientation="horizontal" in={checked}>
+              <ListItemText primary="Search" />
+            </Collapse>
           </ListItemButton>
-        </ListItem>
+        </ListItem> */}
         <ListItem>
           <ListItemButton
             onClick={() => {
               setChecked(!checked);
               handleChange();
             }}
+            sx={{ height: '48px' }}
           >
             <ListItemIcon>
               {checked ? <CloseFullscreenIcon /> : <OpenInFullIcon />}
             </ListItemIcon>
-            {checked && <ListItemText primary="Collapse" />}
+            <Collapse orientation="horizontal" in={checked}>
+              <ListItemText primary="Collapse" />
+            </Collapse>
           </ListItemButton>
         </ListItem>
       </List>
