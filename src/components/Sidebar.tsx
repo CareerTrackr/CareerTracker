@@ -11,8 +11,8 @@ import ArticleIcon from '@mui/icons-material/Article';
 import EditIcon from '@mui/icons-material/Edit';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import SearchIcon from '@mui/icons-material/Search';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
+import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
 import { PageOptions } from '../../types';
 
 export default function Sidebar({
@@ -108,10 +108,17 @@ export default function Sidebar({
           </ListItemButton>
         </ListItem>
         <ListItem>
-          <FormControlLabel
-            control={<Switch checked={checked} onChange={handleChange} />}
-            label={checked ? 'Collapse' : 'Expand'}
-          />
+          <ListItemButton
+            onClick={() => {
+              setChecked(!checked);
+              handleChange();
+            }}
+          >
+            <ListItemIcon>
+              {checked ? <CloseFullscreenIcon /> : <OpenInFullIcon />}
+            </ListItemIcon>
+            {checked && <ListItemText primary="Collapse" />}
+          </ListItemButton>
         </ListItem>
       </List>
     </Box>
