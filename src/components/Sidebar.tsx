@@ -8,7 +8,6 @@ import {
   ListItemText,
   Collapse,
 } from '@mui/material';
-import { TransitionGroup } from 'react-transition-group';
 import ArticleIcon from '@mui/icons-material/Article';
 import EditIcon from '@mui/icons-material/Edit';
 import NotificationsIcon from '@mui/icons-material/Notifications';
