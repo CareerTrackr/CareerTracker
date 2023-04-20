@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { DarkMode } from '../../types.js';
-import logo from '../assets/CareerTracker.png';
+import logo from '../assets/CareerTracker-removebg-preview.png';
 
 function Header({ setDarkMode, darkMode }: DarkMode) {
   const [dropdown, setDropdown] = useState(false);
@@ -41,7 +41,7 @@ function Header({ setDarkMode, darkMode }: DarkMode) {
     <AppBar position="static">
       <Toolbar>
         <Box sx={{ flexGrow: 1 }}>
-          <img src={logo} alt="logo" />
+          <img src={logo} alt="logo" width="300" />
         </Box>
 
         <IconButton onClick={() => setDarkMode(!darkMode)}>
