@@ -29,6 +29,10 @@ export interface RowData {
   [key: string]: string | number;
 }
 
+export interface UrlData {
+  [key: string]: string;
+}
+
 export interface IdCache {
   [key: string]: true;
 }
