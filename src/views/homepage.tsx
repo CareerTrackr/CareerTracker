@@ -30,6 +30,7 @@ export default function Homepage({
     "'You do you.' - Mariko Iwata",
     "'It's who you know. So make yourself someone they know.' - Victor He",
     "'Better than late than never.' - Pei Chu",
+    "'All that you touch \nYou Change. \nAll that you Change \nChanges you. \nThe only lasting truth \nis Change.' - Octavia Butler",
   ];
 
   useEffect(() => {
