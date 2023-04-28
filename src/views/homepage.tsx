@@ -16,7 +16,6 @@ export default function Homepage({
     "'The best time to plant a tree was 20 years ago. The second best time is now.' - Chinese Proverb",
     "'It's hard to beat a person who never gives up.' - Babe Ruth",
     "'I believe in you.' - Matthew Xing",
-    "'Happiness is not something ready made. It comes from your own actions.' - Dalai Lama XIV",
     "'Whatever you are, be a good one.' - Abraham Lincoln",
     "'Your passion is waiting for your courage to catch up.' - Isabelle Lafleche",
     "'If you’re offered a seat on a rocket ship, don’t ask what seat! Just get on.' - Sheryl Sandberg",
