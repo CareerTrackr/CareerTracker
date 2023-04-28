@@ -62,7 +62,7 @@ export default function Sidebar({
   }
 
   return (
-    <Box sx={{ height: 'auto' }}>
+    <Box sx={{ height: '93vh' }}>
       <List>
         <ListItem>
           <Collapse collapsedSize="56px" orientation="horizontal" in={checked}>
