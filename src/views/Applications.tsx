@@ -193,6 +193,7 @@ export default function Applications(): JSX.Element {
                 select
                 defaultValue="Applied"
                 onChange={onChangeHandler}
+                sx={{ paddingBottom: 2 }}
               >
                 <MenuItem value="Applied">Applied</MenuItem>
                 <MenuItem value="Followed Up">Followed Up</MenuItem>
