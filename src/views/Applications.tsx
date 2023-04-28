@@ -143,7 +143,7 @@ export default function Applications(): JSX.Element {
   }, []);
 
   return (
-    <Box sx={{ height: '100vh', width: '100%' }}>
+    <Box sx={{ height: '93vh', width: '100%' }}>
       <Modal
         open={showRowModal}
         onClose={() => setShowRowModal(false)}
@@ -246,7 +246,7 @@ export default function Applications(): JSX.Element {
           aria-label="delete"
           color="error"
           onClick={() => handleDeleteSelected()}
-          sx={{ position: 'absolute', bottom: -16, right: 16 }}
+          sx={{ position: 'absolute', bottom: 69, right: 16 }}
         >
           <DeleteIcon />
         </Fab>
@@ -257,7 +257,7 @@ export default function Applications(): JSX.Element {
           onClick={() => {
             setShowRowModal(true);
           }}
-          sx={{ position: 'absolute', bottom: -16, right: 16 }}
+          sx={{ position: 'absolute', bottom: 69, right: 16 }}
         >
           <AddIcon />
         </Fab>
