@@ -34,7 +34,7 @@ export default function Sidebar({
     return checked ? setWidth('90px') : setWidth('300px');
   };
 
-  function toggleOptions(input: string): void {
+  function toggleOptions(input: string) {
     if (input === 'applications') {
       setShowApplications(true);
       setShowNotes(false);

@@ -38,14 +38,18 @@ function Header({ setDarkMode, darkMode }: DarkMode) {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ height: '7vh' }}>
       <Toolbar>
         <Box sx={{ flexGrow: 1 }}>
-          <img src={logo} alt="logo" />
+          <img src={logo} alt="logo" height="10" />
         </Box>
 
         <IconButton onClick={() => setDarkMode(!darkMode)}>
-          {darkMode ? <Brightness7Icon /> : <DarkModeIcon />}
+          {darkMode ? (
+            <Brightness7Icon sx={{ width: '40px', height: '40px' }} />
+          ) : (
+            <DarkModeIcon sx={{ width: '40px', height: '40px' }} />
+          )}
         </IconButton>
 
         <IconButton
@@ -54,7 +58,7 @@ function Header({ setDarkMode, darkMode }: DarkMode) {
           aria-haspopup="true"
           onClick={openMenu}
         >
-          <AccountCircleIcon />
+          <AccountCircleIcon sx={{ width: '40px', height: '40px' }} />
         </IconButton>
         <Menu
           sx={{ mt: '45px' }}

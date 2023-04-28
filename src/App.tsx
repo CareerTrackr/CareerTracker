@@ -6,6 +6,7 @@ import { Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Homepage from './views/Homepage.js';
 import Applications from './views/Applications.js';
+import Notes from './views/Notes.js';
 import Sidebar from './components/Sidebar.js';
 import Header from './components/Header';
 import { DarkMode } from '../types.js';
@@ -22,7 +23,7 @@ function App({ setDarkMode, darkMode }: DarkMode) {
       <Homepage setShowHomepage={setShowHomepage} />
     </div>
   ) : (
-    <Box>
+    <Box sx={{ height: '100vh' }}>
       <Header setDarkMode={setDarkMode} darkMode={darkMode} />
       <Box sx={{ display: 'flex', flexGrow: 1 }}>
         <Sidebar
@@ -36,6 +37,7 @@ function App({ setDarkMode, darkMode }: DarkMode) {
           setShowSearchFilter={setShowSearchFilter}
         />
         {showApplications ? <Applications /> : <></>}
+        {showNotes ? <Notes /> : <></>}
       </Box>
     </Box>
   );
