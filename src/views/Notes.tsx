@@ -15,10 +15,14 @@ export default function Notes(): JSX.Element {
     setUrlData({ ...urlData, [event.target.name]: event.target.value });
   }
 
-  // disabling any due to typescript not being able to handle Iconbutton onClick input
+  // disabling no-any due to typescript not being able to handle Iconbutton onClick input
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function copyHandler(event: any) {
     navigator.clipboard.writeText(urlData[event.target.name]);
+  }
+
+  function handleNotesChange(event: React.ChangeEvent<HTMLInputElement>) {
+    console.log(JSON.stringify(event.target.value));
   }
 
   return (
@@ -230,7 +234,14 @@ export default function Notes(): JSX.Element {
           borderColor: '#424242',
         }}
       >
-        <div></div>
+        <TextField
+          name="notes"
+          fullWidth
+          multiline
+          minRows={3}
+          placeholder="Write some notes..."
+          onChange={handleNotesChange}
+        />
       </Box>
     </Box>
   );
