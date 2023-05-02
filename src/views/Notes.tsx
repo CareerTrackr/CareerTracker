@@ -11,6 +11,7 @@ import {
   Typography,
   Button,
 } from '@mui/material';
+import { jsPDF } from 'jspdf';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DownloadIcon from '@mui/icons-material/Download';
 import { UrlData } from '../../types';
@@ -18,6 +19,7 @@ import { UrlData } from '../../types';
 export default function Notes(): JSX.Element {
   // github, linkedin, portfolio, other
   const [urlData, setUrlData] = useState<UrlData>({});
+  const [coverLetterText, setCoverLetterText] = useState<string>('');
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setUrlData({ ...urlData, [event.target.name]: event.target.value });
@@ -34,7 +36,19 @@ export default function Notes(): JSX.Element {
   }
 
   function handleCoverLetterChange(event: React.ChangeEvent<HTMLInputElement>) {
-    console.log(JSON.stringify(event.target.value));
+    setCoverLetterText(event.target.value);
+  }
+
+  function handleDownloadCoverLetter(): void {
+    const doc = new jsPDF({
+      format: 'letter',
+    });
+    doc.setFont('arial');
+    doc.setFontSize(14);
+    doc.text(coverLetterText, 20, 30, {
+      maxWidth: 175,
+    });
+    doc.save('CoverLetter.pdf');
   }
 
   return (
@@ -277,11 +291,13 @@ export default function Notes(): JSX.Element {
             minRows={20}
             placeholder="Cover letter here..."
             onChange={handleCoverLetterChange}
+            sx={{ marginTop: 1 }}
           />
           <Box sx={{ display: 'flex', justifyContent: 'end' }}>
             <Button
               variant="contained"
               endIcon={<DownloadIcon />}
+              onClick={handleDownloadCoverLetter}
               sx={{ marginTop: 1, width: '150px' }}
             >
               Download
