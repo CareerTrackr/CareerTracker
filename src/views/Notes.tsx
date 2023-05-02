@@ -3,234 +3,307 @@
 // without disabling, would bring up an eslint error for onChange(someFunc), stating: "JSX props should not use functions"
 // apparently this issue has been fixed, so disabling the rule
 import React, { useEffect, useState } from 'react';
-import { Box, Chip, TextField, IconButton, Typography } from '@mui/material';
+import {
+  Box,
+  Chip,
+  TextField,
+  IconButton,
+  Typography,
+  Button,
+} from '@mui/material';
+import { jsPDF } from 'jspdf';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import DownloadIcon from '@mui/icons-material/Download';
 import { UrlData } from '../../types';
 
 export default function Notes(): JSX.Element {
   // github, linkedin, portfolio, other
   const [urlData, setUrlData] = useState<UrlData>({});
+  const [coverLetterText, setCoverLetterText] = useState<string>('');
 
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+  function onLinksChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setUrlData({ ...urlData, [event.target.name]: event.target.value });
   }
 
-  // disabling any due to typescript not being able to handle Iconbutton onClick input
+  // disabling no-any due to typescript not being able to handle Iconbutton onClick input
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function copyHandler(event: any) {
     navigator.clipboard.writeText(urlData[event.target.name]);
   }
 
+  function handleNotesChange(event: React.ChangeEvent<HTMLInputElement>) {
+    console.log(JSON.stringify(event.target.value));
+  }
+
+  function handleCoverLetterChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setCoverLetterText(event.target.value);
+  }
+
+  function handleDownloadCoverLetter(): void {
+    const doc = new jsPDF({
+      format: 'letter',
+    });
+    doc.setFont('arial');
+    doc.setFontSize(14);
+    doc.text(coverLetterText, 20, 30, {
+      maxWidth: 175,
+    });
+    doc.save('CoverLetter.pdf');
+  }
+
   return (
     <Box
       sx={{
+        display: 'flex',
+        flexDirection: 'row',
         height: '93vh',
         width: '100%',
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'flex-start',
-          border: 1,
-          borderRadius: 1,
-          margin: 1,
-          padding: 1,
-          width: '50%',
-          borderColor: '#424242',
-        }}
-      >
-        <Box display="flex">
-          <Chip
-            label="GitHub"
-            sx={{
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 0,
-              marginTop: '20px',
-              marginBottom: '20px',
-              height: '40px',
-              minWidth: '120px',
-              fontSize: '20px',
-            }}
-          />
-          <TextField
-            name="github"
-            size="small"
-            fullWidth
-            sx={{
-              marginTop: '20px',
-              marginBottom: '20px',
-            }}
-            onChange={onChangeHandler}
-            InputProps={{ sx: { borderRadius: 0 } }}
-          />
-          <IconButton
-            name="github"
-            color="primary"
-            sx={{
-              marginTop: '20px',
-              borderRadius: 0,
-              border: 1,
-              borderColor: '#424242',
-              height: '40px',
-            }}
-          >
-            <ContentCopyIcon />
-          </IconButton>
+      <Box sx={{ width: '50%' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            border: 1,
+            borderRadius: 1,
+            margin: 1,
+            padding: 1,
+            borderColor: '#424242',
+          }}
+        >
+          <Box display="flex">
+            <Chip
+              label="GitHub"
+              sx={{
+                borderTopRightRadius: 0,
+                borderBottomRightRadius: 0,
+                marginTop: '20px',
+                marginBottom: '20px',
+                height: '40px',
+                minWidth: '120px',
+                fontSize: '20px',
+              }}
+            />
+            <TextField
+              name="github"
+              size="small"
+              fullWidth
+              sx={{
+                marginTop: '20px',
+                marginBottom: '20px',
+              }}
+              onChange={onLinksChangeHandler}
+              InputProps={{ sx: { borderRadius: 0 } }}
+            />
+            <IconButton
+              name="github"
+              color="primary"
+              sx={{
+                marginTop: '20px',
+                borderRadius: 0,
+                border: 1,
+                borderColor: '#424242',
+                height: '40px',
+              }}
+            >
+              <ContentCopyIcon />
+            </IconButton>
+          </Box>
+          <Box display="flex">
+            <Chip
+              label="Linkedin"
+              sx={{
+                borderTopRightRadius: 0,
+                borderBottomRightRadius: 0,
+                height: '40px',
+                minWidth: '120px',
+                fontSize: '20px',
+              }}
+            />
+            <TextField
+              name="linkedin"
+              size="small"
+              fullWidth
+              sx={{
+                marginBottom: '20px',
+              }}
+              onChange={onLinksChangeHandler}
+              InputProps={{ sx: { borderRadius: 0 } }}
+            />
+            <IconButton
+              name="linkedin"
+              color="primary"
+              sx={{
+                borderRadius: 0,
+                border: 1,
+                borderColor: '#424242',
+                height: '40px',
+              }}
+            >
+              <ContentCopyIcon />
+            </IconButton>
+          </Box>
+          <Box display="flex">
+            <Chip
+              label="Email"
+              sx={{
+                borderTopRightRadius: 0,
+                borderBottomRightRadius: 0,
+                height: '40px',
+                minWidth: '120px',
+                fontSize: '20px',
+              }}
+            />
+            <TextField
+              name="email"
+              size="small"
+              fullWidth
+              sx={{
+                marginBottom: '20px',
+              }}
+              onChange={onLinksChangeHandler}
+              InputProps={{ sx: { borderRadius: 0 } }}
+            />
+            <IconButton
+              name="email"
+              color="primary"
+              onClick={copyHandler}
+              sx={{
+                borderRadius: 0,
+                border: 1,
+                borderColor: '#424242',
+                height: '40px',
+              }}
+            >
+              <ContentCopyIcon />
+            </IconButton>
+          </Box>
+          <Box display="flex">
+            <Chip
+              label="Portfolio"
+              sx={{
+                borderTopRightRadius: 0,
+                borderBottomRightRadius: 0,
+                height: '40px',
+                minWidth: '120px',
+                fontSize: '20px',
+              }}
+            />
+            <TextField
+              name="portfolio"
+              size="small"
+              fullWidth
+              sx={{
+                marginBottom: '20px',
+              }}
+              onChange={onLinksChangeHandler}
+              InputProps={{ sx: { borderRadius: 0 } }}
+            />
+            <IconButton
+              name="portfolio"
+              color="primary"
+              onClick={copyHandler}
+              sx={{
+                borderRadius: 0,
+                border: 1,
+                borderColor: '#424242',
+                height: '40px',
+              }}
+            >
+              <ContentCopyIcon />
+            </IconButton>
+          </Box>
+          <Box display="flex">
+            <Chip
+              label="Other"
+              sx={{
+                borderTopRightRadius: 0,
+                borderBottomRightRadius: 0,
+                height: '40px',
+                minWidth: '120px',
+                fontSize: '20px',
+              }}
+            />
+            <TextField
+              name="other"
+              size="small"
+              fullWidth
+              sx={{
+                marginBottom: '20px',
+              }}
+              onChange={onLinksChangeHandler}
+              InputProps={{ sx: { borderRadius: 0 } }}
+            />
+            <IconButton
+              name="other"
+              color="primary"
+              onClick={copyHandler}
+              sx={{
+                borderRadius: 0,
+                border: 1,
+                borderColor: '#424242',
+                height: '40px',
+              }}
+            >
+              <ContentCopyIcon />
+            </IconButton>
+          </Box>
         </Box>
-        <Box display="flex">
-          <Chip
-            label="Linkedin"
-            sx={{
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 0,
-              height: '40px',
-              minWidth: '120px',
-              fontSize: '20px',
-            }}
-          />
+
+        <Box
+          sx={{
+            border: 1,
+            borderRadius: 1,
+            margin: 1,
+            padding: 1,
+            borderColor: '#424242',
+          }}
+        >
           <TextField
-            name="linkedin"
-            size="small"
+            name="notes"
             fullWidth
-            sx={{
-              marginBottom: '20px',
-            }}
-            onChange={onChangeHandler}
-            InputProps={{ sx: { borderRadius: 0 } }}
+            multiline
+            minRows={8.3}
+            placeholder="Write some notes..."
+            onChange={handleNotesChange}
           />
-          <IconButton
-            name="linkedin"
-            color="primary"
-            sx={{
-              borderRadius: 0,
-              border: 1,
-              borderColor: '#424242',
-              height: '40px',
-            }}
-          >
-            <ContentCopyIcon />
-          </IconButton>
-        </Box>
-        <Box display="flex">
-          <Chip
-            label="Email"
-            sx={{
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 0,
-              height: '40px',
-              minWidth: '120px',
-              fontSize: '20px',
-            }}
-          />
-          <TextField
-            name="email"
-            size="small"
-            fullWidth
-            sx={{
-              marginBottom: '20px',
-            }}
-            onChange={onChangeHandler}
-            InputProps={{ sx: { borderRadius: 0 } }}
-          />
-          <IconButton
-            name="email"
-            color="primary"
-            onClick={copyHandler}
-            sx={{
-              borderRadius: 0,
-              border: 1,
-              borderColor: '#424242',
-              height: '40px',
-            }}
-          >
-            <ContentCopyIcon />
-          </IconButton>
-        </Box>
-        <Box display="flex">
-          <Chip
-            label="Portfolio"
-            sx={{
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 0,
-              height: '40px',
-              minWidth: '120px',
-              fontSize: '20px',
-            }}
-          />
-          <TextField
-            name="portfolio"
-            size="small"
-            fullWidth
-            sx={{
-              marginBottom: '20px',
-            }}
-            onChange={onChangeHandler}
-            InputProps={{ sx: { borderRadius: 0 } }}
-          />
-          <IconButton
-            name="portfolio"
-            color="primary"
-            onClick={copyHandler}
-            sx={{
-              borderRadius: 0,
-              border: 1,
-              borderColor: '#424242',
-              height: '40px',
-            }}
-          >
-            <ContentCopyIcon />
-          </IconButton>
-        </Box>
-        <Box display="flex">
-          <Chip
-            label="Other"
-            sx={{
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 0,
-              height: '40px',
-              minWidth: '120px',
-              fontSize: '20px',
-            }}
-          />
-          <TextField
-            name="other"
-            size="small"
-            fullWidth
-            sx={{
-              marginBottom: '20px',
-            }}
-            onChange={onChangeHandler}
-            InputProps={{ sx: { borderRadius: 0 } }}
-          />
-          <IconButton
-            name="other"
-            color="primary"
-            onClick={copyHandler}
-            sx={{
-              borderRadius: 0,
-              border: 1,
-              borderColor: '#424242',
-              height: '40px',
-            }}
-          >
-            <ContentCopyIcon />
-          </IconButton>
         </Box>
       </Box>
 
-      <Box
-        sx={{
-          border: 1,
-          borderRadius: 1,
-          margin: 1,
-          padding: 1,
-          width: '50%',
-          borderColor: '#424242',
-        }}
-      >
-        <div></div>
+      <Box sx={{ width: '50%' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            border: 1,
+            borderRadius: 1,
+            margin: 1,
+            padding: 1,
+            borderColor: '#424242',
+          }}
+        >
+          <Typography variant="h5">Cover Letter</Typography>
+          <TextField
+            name="coverLetter"
+            fullWidth
+            multiline
+            minRows={20}
+            placeholder="Cover letter here..."
+            onChange={handleCoverLetterChange}
+            sx={{ marginTop: 1 }}
+          />
+          <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+            <Button
+              variant="contained"
+              endIcon={<DownloadIcon />}
+              onClick={handleDownloadCoverLetter}
+              sx={{ marginTop: 1, width: '150px' }}
+            >
+              Download
+            </Button>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
