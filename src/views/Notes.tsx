@@ -3,7 +3,7 @@
 // without disabling, would bring up an eslint error for onChange(someFunc), stating: "JSX props should not use functions"
 // apparently this issue has been fixed, so disabling the rule
 import React, { useEffect, useState } from 'react';
-import { Box, Chip, TextField, IconButton } from '@mui/material';
+import { Box, Chip, TextField, IconButton, Typography } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { UrlData } from '../../types';
 
@@ -37,7 +37,7 @@ export default function Notes(): JSX.Element {
           margin: 1,
           padding: 1,
           width: '50%',
-          borderColor: 'grey.500',
+          borderColor: '#424242',
         }}
       >
         <Box display="flex">
@@ -217,6 +217,19 @@ export default function Notes(): JSX.Element {
             <ContentCopyIcon />
           </IconButton>
         </Box>
+      </Box>
+
+      <Box
+        sx={{
+          border: 1,
+          borderRadius: 1,
+          margin: 1,
+          padding: 1,
+          width: '50%',
+          borderColor: '#424242',
+        }}
+      >
+        <div></div>
       </Box>
     </Box>
   );
