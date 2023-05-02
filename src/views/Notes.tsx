@@ -21,7 +21,7 @@ export default function Notes(): JSX.Element {
   const [urlData, setUrlData] = useState<UrlData>({});
   const [coverLetterText, setCoverLetterText] = useState<string>('');
 
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+  function onLinksChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setUrlData({ ...urlData, [event.target.name]: event.target.value });
   }
 
@@ -93,7 +93,7 @@ export default function Notes(): JSX.Element {
                 marginTop: '20px',
                 marginBottom: '20px',
               }}
-              onChange={onChangeHandler}
+              onChange={onLinksChangeHandler}
               InputProps={{ sx: { borderRadius: 0 } }}
             />
             <IconButton
@@ -128,7 +128,7 @@ export default function Notes(): JSX.Element {
               sx={{
                 marginBottom: '20px',
               }}
-              onChange={onChangeHandler}
+              onChange={onLinksChangeHandler}
               InputProps={{ sx: { borderRadius: 0 } }}
             />
             <IconButton
@@ -162,7 +162,7 @@ export default function Notes(): JSX.Element {
               sx={{
                 marginBottom: '20px',
               }}
-              onChange={onChangeHandler}
+              onChange={onLinksChangeHandler}
               InputProps={{ sx: { borderRadius: 0 } }}
             />
             <IconButton
@@ -197,7 +197,7 @@ export default function Notes(): JSX.Element {
               sx={{
                 marginBottom: '20px',
               }}
-              onChange={onChangeHandler}
+              onChange={onLinksChangeHandler}
               InputProps={{ sx: { borderRadius: 0 } }}
             />
             <IconButton
@@ -232,7 +232,7 @@ export default function Notes(): JSX.Element {
               sx={{
                 marginBottom: '20px',
               }}
-              onChange={onChangeHandler}
+              onChange={onLinksChangeHandler}
               InputProps={{ sx: { borderRadius: 0 } }}
             />
             <IconButton
