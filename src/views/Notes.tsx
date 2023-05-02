@@ -3,8 +3,16 @@
 // without disabling, would bring up an eslint error for onChange(someFunc), stating: "JSX props should not use functions"
 // apparently this issue has been fixed, so disabling the rule
 import React, { useEffect, useState } from 'react';
-import { Box, Chip, TextField, IconButton, Typography } from '@mui/material';
+import {
+  Box,
+  Chip,
+  TextField,
+  IconButton,
+  Typography,
+  Button,
+} from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import DownloadIcon from '@mui/icons-material/Download';
 import { UrlData } from '../../types';
 
 export default function Notes(): JSX.Element {
@@ -22,6 +30,10 @@ export default function Notes(): JSX.Element {
   }
 
   function handleNotesChange(event: React.ChangeEvent<HTMLInputElement>) {
+    console.log(JSON.stringify(event.target.value));
+  }
+
+  function handleCoverLetterChange(event: React.ChangeEvent<HTMLInputElement>) {
     console.log(JSON.stringify(event.target.value));
   }
 
@@ -238,7 +250,7 @@ export default function Notes(): JSX.Element {
             name="notes"
             fullWidth
             multiline
-            minRows={3}
+            minRows={8.3}
             placeholder="Write some notes..."
             onChange={handleNotesChange}
           />
@@ -249,6 +261,7 @@ export default function Notes(): JSX.Element {
         <Box
           sx={{
             display: 'flex',
+            flexDirection: 'column',
             border: 1,
             borderRadius: 1,
             margin: 1,
@@ -256,7 +269,24 @@ export default function Notes(): JSX.Element {
             borderColor: '#424242',
           }}
         >
-          <div></div>
+          <Typography variant="h5">Cover Letter</Typography>
+          <TextField
+            name="coverLetter"
+            fullWidth
+            multiline
+            minRows={20}
+            placeholder="Cover letter here..."
+            onChange={handleCoverLetterChange}
+          />
+          <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+            <Button
+              variant="contained"
+              endIcon={<DownloadIcon />}
+              sx={{ marginTop: 1, width: '150px' }}
+            >
+              Download
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Box>
