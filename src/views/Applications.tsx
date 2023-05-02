@@ -143,7 +143,7 @@ export default function Applications(): JSX.Element {
   }, []);
 
   return (
-    <Box sx={{ height: '93vh', width: '100%' }}>
+    <Box sx={{ height: '93vh', width: '100%', margin: 1 }}>
       <Modal
         open={showRowModal}
         onClose={() => setShowRowModal(false)}
