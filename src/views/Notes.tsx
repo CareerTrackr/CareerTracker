@@ -24,14 +24,15 @@ export default function Notes(): JSX.Element {
   return (
     <Box
       sx={{
-        display: 'flex',
         height: '93vh',
         width: '100%',
-        flexDirection: 'column',
       }}
     >
       <Box
         sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
           border: 1,
           borderRadius: 1,
           margin: 1,
