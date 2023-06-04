@@ -11,24 +11,44 @@ import {
   Typography,
   Button,
 } from '@mui/material';
-import { jsPDF } from 'jspdf';
+import { jsPDF as JSPDF } from 'jspdf';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DownloadIcon from '@mui/icons-material/Download';
-import { UrlData } from '../../types';
+import { NotesData } from '../../types';
 
 export default function Notes(): JSX.Element {
   // github, linkedin, portfolio, other
-  const [urlData, setUrlData] = useState<UrlData>({});
+  const [notesData, setNotesData] = useState<NotesData>({
+    github: '',
+    linkedin: '',
+    email: '',
+    portfolio: '',
+    other: '',
+    notes: '',
+    coverLetter: '',
+  });
   const [coverLetterText, setCoverLetterText] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
+
+  function fetchData() {
+    fetch('http://localhost:5174/notes')
+      .then((data) => data.json())
+      .then((data) => {
+        setNotesData(data);
+        console.log(notesData);
+        setLoading(false);
+      });
+  }
 
   function onLinksChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setUrlData({ ...urlData, [event.target.name]: event.target.value });
+    setNotesData({ ...notesData, [event.target.name]: event.target.value });
   }
 
   // disabling no-any due to typescript not being able to handle Iconbutton onClick input
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function copyHandler(event: any) {
-    navigator.clipboard.writeText(urlData[event.target.name]);
+  function copyHandler(event: any, name: string) {
+    navigator.clipboard.writeText(notesData[name as keyof NotesData]);
+    console.log(name);
   }
 
   function handleNotesChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -40,7 +60,7 @@ export default function Notes(): JSX.Element {
   }
 
   function handleDownloadCoverLetter(): void {
-    const doc = new jsPDF({
+    const doc = new JSPDF({
       format: 'letter',
     });
     doc.setFont('arial');
@@ -51,7 +71,13 @@ export default function Notes(): JSX.Element {
     doc.save('CoverLetter.pdf');
   }
 
-  return (
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return loading ? (
+    <div>LOADING!</div>
+  ) : (
     <Box
       sx={{
         display: 'flex',
@@ -88,6 +114,7 @@ export default function Notes(): JSX.Element {
             <TextField
               name="github"
               size="small"
+              defaultValue={notesData.github}
               fullWidth
               sx={{
                 marginTop: '20px',
@@ -99,6 +126,7 @@ export default function Notes(): JSX.Element {
             <IconButton
               name="github"
               color="primary"
+              onClick={(e) => copyHandler(e, 'github')}
               sx={{
                 marginTop: '20px',
                 borderRadius: 0,
@@ -134,6 +162,7 @@ export default function Notes(): JSX.Element {
             <IconButton
               name="linkedin"
               color="primary"
+              onClick={(e) => copyHandler(e, 'linkedin')}
               sx={{
                 borderRadius: 0,
                 border: 1,
@@ -168,7 +197,7 @@ export default function Notes(): JSX.Element {
             <IconButton
               name="email"
               color="primary"
-              onClick={copyHandler}
+              onClick={(e) => copyHandler(e, 'email')}
               sx={{
                 borderRadius: 0,
                 border: 1,
@@ -203,7 +232,7 @@ export default function Notes(): JSX.Element {
             <IconButton
               name="portfolio"
               color="primary"
-              onClick={copyHandler}
+              onClick={(e) => copyHandler(e, 'portfolio')}
               sx={{
                 borderRadius: 0,
                 border: 1,
@@ -238,7 +267,7 @@ export default function Notes(): JSX.Element {
             <IconButton
               name="other"
               color="primary"
-              onClick={copyHandler}
+              onClick={(e) => copyHandler(e, 'other')}
               sx={{
                 borderRadius: 0,
                 border: 1,

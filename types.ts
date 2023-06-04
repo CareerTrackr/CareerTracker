@@ -29,8 +29,14 @@ export interface RowData {
   [key: string]: string | number;
 }
 
-export interface UrlData {
-  [key: string]: string;
+export interface NotesData {
+  github: string;
+  linkedin: string;
+  email: string;
+  portfolio: string;
+  other: string;
+  notes: string;
+  coverLetter: string;
 }
 
 export interface IdCache {
