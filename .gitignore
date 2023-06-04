@@ -12,6 +12,7 @@ package-lock.json
 dist
 dist-ssr
 applicationData.json
+notesData.json
 *.local
 
 # Editor directories and files
