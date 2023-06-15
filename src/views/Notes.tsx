@@ -152,6 +152,7 @@ export default function Notes(): JSX.Element {
             <TextField
               name="linkedin"
               size="small"
+              defaultValue={notesData.linkedin}
               fullWidth
               sx={{
                 marginBottom: '20px',
@@ -187,6 +188,7 @@ export default function Notes(): JSX.Element {
             <TextField
               name="email"
               size="small"
+              defaultValue={notesData.email}
               fullWidth
               sx={{
                 marginBottom: '20px',
@@ -222,6 +224,7 @@ export default function Notes(): JSX.Element {
             <TextField
               name="portfolio"
               size="small"
+              defaultValue={notesData.portfolio}
               fullWidth
               sx={{
                 marginBottom: '20px',
@@ -257,6 +260,7 @@ export default function Notes(): JSX.Element {
             <TextField
               name="other"
               size="small"
+              defaultValue={notesData.other}
               fullWidth
               sx={{
                 marginBottom: '20px',
