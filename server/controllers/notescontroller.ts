@@ -14,7 +14,7 @@ const getDatabase = async function getDatabase(
     await fs.promises.writeFile(
       'notesData.json',
       JSON.stringify({
-        github: 'github.com',
+        github: '',
         linkedin: '',
         email: '',
         portfolio: '',
@@ -26,6 +26,24 @@ const getDatabase = async function getDatabase(
     const data = await fs.promises.readFile('notesData.json');
     res.locals.data = data;
     return next();
+  }
+};
+
+const patchDatabase = async function patchDatabase(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    await fs.promises.writeFile(
+      'notesData.json',
+      JSON.stringify(req.body.notes)
+    );
+    return next();
+  } catch (err) {
+    return res
+      .status(418)
+      .send('I am not a teapot, so I cannot and will not brew coffee with it.');
   }
 };
 
