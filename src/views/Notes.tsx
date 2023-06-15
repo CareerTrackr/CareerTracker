@@ -27,7 +27,6 @@ export default function Notes(): JSX.Element {
     notes: '',
     coverLetter: '',
   });
-  const [coverLetterText, setCoverLetterText] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
   function fetchData() {
@@ -35,28 +34,29 @@ export default function Notes(): JSX.Element {
       .then((data) => data.json())
       .then((data) => {
         setNotesData(data);
-        console.log(notesData);
         setLoading(false);
       });
   }
 
   function onLinksChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setNotesData({ ...notesData, [event.target.name]: event.target.value });
+
+    fetch('http://localhost:5174/notes', {
+      method: 'PATCH',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({
+        notes: notesData,
+      }),
+    });
   }
 
   // disabling no-any due to typescript not being able to handle Iconbutton onClick input
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function copyHandler(event: any, name: string) {
     navigator.clipboard.writeText(notesData[name as keyof NotesData]);
-    console.log(name);
-  }
-
-  function handleNotesChange(event: React.ChangeEvent<HTMLInputElement>) {
-    console.log(JSON.stringify(event.target.value));
-  }
-
-  function handleCoverLetterChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setCoverLetterText(event.target.value);
   }
 
   function handleDownloadCoverLetter(): void {
@@ -65,7 +65,7 @@ export default function Notes(): JSX.Element {
     });
     doc.setFont('arial');
     doc.setFontSize(14);
-    doc.text(coverLetterText, 20, 30, {
+    doc.text(notesData.coverLetter, 20, 30, {
       maxWidth: 175,
     });
     doc.save('CoverLetter.pdf');
@@ -152,6 +152,7 @@ export default function Notes(): JSX.Element {
             <TextField
               name="linkedin"
               size="small"
+              defaultValue={notesData.linkedin}
               fullWidth
               sx={{
                 marginBottom: '20px',
@@ -187,6 +188,7 @@ export default function Notes(): JSX.Element {
             <TextField
               name="email"
               size="small"
+              defaultValue={notesData.email}
               fullWidth
               sx={{
                 marginBottom: '20px',
@@ -222,6 +224,7 @@ export default function Notes(): JSX.Element {
             <TextField
               name="portfolio"
               size="small"
+              defaultValue={notesData.portfolio}
               fullWidth
               sx={{
                 marginBottom: '20px',
@@ -257,6 +260,7 @@ export default function Notes(): JSX.Element {
             <TextField
               name="other"
               size="small"
+              defaultValue={notesData.other}
               fullWidth
               sx={{
                 marginBottom: '20px',
@@ -295,7 +299,7 @@ export default function Notes(): JSX.Element {
             multiline
             minRows={8.3}
             placeholder="Write some notes..."
-            onChange={handleNotesChange}
+            onChange={onLinksChangeHandler}
           />
         </Box>
       </Box>
@@ -319,7 +323,7 @@ export default function Notes(): JSX.Element {
             multiline
             minRows={20}
             placeholder="Cover letter here..."
-            onChange={handleCoverLetterChange}
+            onChange={onLinksChangeHandler}
             sx={{ marginTop: 1 }}
           />
           <Box sx={{ display: 'flex', justifyContent: 'end' }}>

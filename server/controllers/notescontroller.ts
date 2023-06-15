@@ -14,7 +14,7 @@ const getDatabase = async function getDatabase(
     await fs.promises.writeFile(
       'notesData.json',
       JSON.stringify({
-        github: 'github.com',
+        github: '',
         linkedin: '',
         email: '',
         portfolio: '',
@@ -29,4 +29,22 @@ const getDatabase = async function getDatabase(
   }
 };
 
-export default { getDatabase };
+const patchDatabase = async function patchDatabase(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    await fs.promises.writeFile(
+      'notesData.json',
+      JSON.stringify(req.body.notes)
+    );
+    return next();
+  } catch (err) {
+    return res
+      .status(418)
+      .send('I am not a teapot, so I cannot and will not brew coffee with it.');
+  }
+};
+
+export default { getDatabase, patchDatabase };

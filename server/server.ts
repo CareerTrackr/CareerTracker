@@ -9,13 +9,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// app.patch(
-//   '/notes',
-//   notescontroller.patchDatabase,
-//   async (req: Request, res: Response) => {
-//     return res.status(200).send('Patch successful');
-//   }
-// );
+app.patch(
+  '/notes',
+  notescontroller.patchDatabase,
+  async (req: Request, res: Response) => {
+    return res.status(200).send('Patch successful');
+  }
+);
 
 app.get(
   '/notes',
