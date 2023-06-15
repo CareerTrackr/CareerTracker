@@ -47,4 +47,4 @@ const patchDatabase = async function patchDatabase(
   }
 };
 
-export default { getDatabase };
+export default { getDatabase, patchDatabase };
