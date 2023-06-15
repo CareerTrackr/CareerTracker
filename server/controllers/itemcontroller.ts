@@ -46,7 +46,7 @@ const postDatabase = async function postDatabase(
     return res
       .status(418)
       .send(
-        'I do not have a teapot, so I cannot and will not brew coffee with it.'
+        'I am not have a teapot, so I cannot and will not brew coffee with it.'
       );
   }
 };
