@@ -30,7 +30,15 @@ export default function Applications(): JSX.Element {
   const [columns, setColumns] = useState<GridColDef[]>([]);
   const [rows, setRows] = useState<RowData[]>([]);
   const [showRowModal, setShowRowModal] = useState<boolean>(false);
-  const [newRowData, setNewRowData] = useState<RowData>({});
+  const [newRowData, setNewRowData] = useState<RowData>({
+    id: 0,
+    date: '',
+    status: '',
+    company: '',
+    role: '',
+    link: '',
+    notes: '',
+  });
   const [selectedIds, setSelectedIds] = useState<GridRowSelectionModel>([]);
 
   function fetchData() {
@@ -80,6 +88,7 @@ export default function Applications(): JSX.Element {
     if (!newRowData.date)
       newRowData.date = `${new Date().getMonth() + 1}/${new Date().getDate()}`;
     if (!newRowData.status) newRowData.status = 'Applied';
+    newRowData.id = rows.length + 1;
     fetch('http://localhost:5174/', {
       method: 'POST',
       headers: {
@@ -92,7 +101,15 @@ export default function Applications(): JSX.Element {
     })
       .then(() => {
         // clear data from state
-        setNewRowData({});
+        setNewRowData({
+          id: 0,
+          date: '',
+          status: '',
+          company: '',
+          role: '',
+          link: '',
+          notes: '',
+        });
         fetchData();
       })
       .catch((err) => {
@@ -100,9 +117,42 @@ export default function Applications(): JSX.Element {
       });
   }
 
+  function handleRowUpdate(newRow: RowData) {
+    const newRowsData = rows;
+    console.log(newRow);
+    for (let i = 0; i < newRowsData.length; i += 1) {
+      if (newRowsData[i].id === newRow.id) {
+        newRowsData[i].id = newRow.id;
+        newRowsData[i].date = newRow.date;
+        newRowsData[i].status = newRow.status;
+        newRowsData[i].company = newRow.company;
+        newRowsData[i].role = newRow.role;
+        newRowsData[i].link = newRow.link;
+        newRowsData[i].notes = newRow.notes;
+
+        setRows(newRowsData);
+        break;
+      }
+    }
+    fetch('http://localhost:5174/', {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({
+        rowsData: rows,
+      }),
+    });
+  }
+
   function handleSelections(rowSelectionModel: GridRowSelectionModel) {
     // dynamically update ids selected
     setSelectedIds(rowSelectionModel);
+  }
+
+  function processRowError(error: any) {
+    return error;
   }
 
   function handleDeleteSelected() {
@@ -182,6 +232,7 @@ export default function Applications(): JSX.Element {
                   name="company"
                   variant="standard"
                   label="Company Title"
+                  defaultValue=""
                   placeholder="Company Title"
                   onChange={onChangeHandler}
                   sx={{ paddingBottom: 2, minWidth: '330px' }}
@@ -211,6 +262,7 @@ export default function Applications(): JSX.Element {
                 name="role"
                 variant="standard"
                 label="Role Title"
+                defaultValue=""
                 onChange={onChangeHandler}
                 sx={{ paddingBottom: 2 }}
               />
@@ -218,6 +270,7 @@ export default function Applications(): JSX.Element {
                 name="link"
                 variant="standard"
                 label="Link"
+                defaultValue=""
                 onChange={onChangeHandler}
                 sx={{ paddingBottom: 2 }}
               />
@@ -225,6 +278,7 @@ export default function Applications(): JSX.Element {
                 name="notes"
                 multiline
                 label="Notes"
+                defaultValue=""
                 variant="outlined"
                 placeholder="Notes here..."
                 onChange={onChangeHandler}
@@ -266,9 +320,11 @@ export default function Applications(): JSX.Element {
       <DataGrid
         rows={rows}
         columns={columns}
+        processRowUpdate={(newRow) => handleRowUpdate(newRow)}
         checkboxSelection
         disableRowSelectionOnClick
         onRowSelectionModelChange={(event) => handleSelections(event)}
+        onProcessRowUpdateError={(error) => processRowError(error)}
         rowSelectionModel={selectedIds}
       />
     </Box>

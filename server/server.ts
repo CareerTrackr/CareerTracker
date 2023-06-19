@@ -29,7 +29,15 @@ app.patch(
   '/',
   itemcontroller.patchDatabase,
   async (req: Request, res: Response) => {
-    return res.status(200).send('Patch successful.');
+    return res.status(200).send('Patch successful');
+  }
+);
+
+app.put(
+  '/',
+  itemcontroller.putDatabase,
+  async (req: Request, res: Response) => {
+    return res.status(200).send('Put successful');
   }
 );
 
@@ -37,7 +45,7 @@ app.post(
   '/',
   itemcontroller.postDatabase,
   async (req: Request, res: Response) => {
-    return res.status(200).send('Post successful.');
+    return res.status(200).send('Post successful');
   }
 );
 
