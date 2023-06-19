@@ -51,6 +51,30 @@ const postDatabase = async function postDatabase(
   }
 };
 
+const putDatabase = async function putDatabase(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await fs.promises.readFile('applicationData.json', 'utf8');
+    const newData = JSON.parse(data);
+
+    newData.rows = req.body.rowsData;
+    await fs.promises.writeFile(
+      'applicationData.json',
+      JSON.stringify(newData)
+    );
+    return next();
+  } catch (err) {
+    return res
+      .status(418)
+      .send(
+        'I am not have a teapot, so I cannot and will not brew coffee with it.'
+      );
+  }
+};
+
 const getDatabase = async function getDatabase(
   req: Request,
   res: Response,
@@ -77,8 +101,20 @@ const getDatabase = async function getDatabase(
           {
             field: 'status',
             headerName: 'Status',
-            width: 110,
+            type: 'singleSelect',
+            valueOptions: [
+              'Applied',
+              'Followed Up',
+              'Rejected',
+              'Lost',
+              'Offer',
+              'Phone Screen',
+              'Technical Interview/Take Home',
+              'Onsite',
+              'Declined',
+            ],
             editable: true,
+            width: 150,
           },
           {
             field: 'company',
@@ -110,4 +146,4 @@ const getDatabase = async function getDatabase(
   }
 };
 
-export default { patchDatabase, postDatabase, getDatabase };
+export default { patchDatabase, putDatabase, postDatabase, getDatabase };
