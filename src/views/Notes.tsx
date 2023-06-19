@@ -295,6 +295,7 @@ export default function Notes(): JSX.Element {
         >
           <TextField
             name="notes"
+            defaultValue={notesData.notes}
             fullWidth
             multiline
             minRows={8.3}
@@ -319,6 +320,7 @@ export default function Notes(): JSX.Element {
           <Typography variant="h5">Cover Letter</Typography>
           <TextField
             name="coverLetter"
+            defaultValue={notesData.coverLetter}
             fullWidth
             multiline
             minRows={20}
