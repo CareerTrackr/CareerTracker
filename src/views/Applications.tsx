@@ -19,7 +19,6 @@ import {
   GridRenderCellParams,
   GridRowSelectionModel,
   GridTreeNodeWithRender,
-  R,
 } from '@mui/x-data-grid';
 import { grey } from '@mui/material/colors';
 import AddIcon from '@mui/icons-material/Add';
@@ -31,7 +30,15 @@ export default function Applications(): JSX.Element {
   const [columns, setColumns] = useState<GridColDef[]>([]);
   const [rows, setRows] = useState<RowData[]>([]);
   const [showRowModal, setShowRowModal] = useState<boolean>(false);
-  const [newRowData, setNewRowData] = useState<RowData>({});
+  const [newRowData, setNewRowData] = useState<RowData>({
+    id: 0,
+    date: '',
+    status: '',
+    company: '',
+    role: '',
+    link: '',
+    notes: '',
+  });
   const [selectedIds, setSelectedIds] = useState<GridRowSelectionModel>([]);
 
   function fetchData() {
@@ -97,6 +104,7 @@ export default function Applications(): JSX.Element {
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     // dynamically update newRowData upon changes in modal
     setNewRowData({ ...newRowData, [event.target.name]: event.target.value });
+    console.log(newRowData);
   }
 
   function handleSubmit() {
@@ -106,6 +114,7 @@ export default function Applications(): JSX.Element {
     if (!newRowData.date)
       newRowData.date = `${new Date().getMonth() + 1}/${new Date().getDate()}`;
     if (!newRowData.status) newRowData.status = 'Applied';
+    newRowData.id = rows.length + 1;
     fetch('http://localhost:5174/', {
       method: 'POST',
       headers: {
@@ -118,7 +127,15 @@ export default function Applications(): JSX.Element {
     })
       .then(() => {
         // clear data from state
-        setNewRowData({});
+        setNewRowData({
+          id: 0,
+          date: '',
+          status: '',
+          company: '',
+          role: '',
+          link: '',
+          notes: '',
+        });
         fetchData();
       })
       .catch((err) => {
@@ -126,13 +143,33 @@ export default function Applications(): JSX.Element {
       });
   }
 
-  function handleRowUpdate(newRow: R, oldRow: R) {
-    console.log(newRow, oldRow);
+  function handleRowUpdate(newRow: RowData, oldRow: RowData) {
+    // console.log(newRow, oldRow);
+    for (let i = 0; i < rows.length; i += 1) {
+      if (rows[i].id === newRow.id) {
+        rows[i] = { ...rows[i], ...newRow };
+        break;
+      }
+    }
+    fetch('http://localhost:5174/', {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({
+        rowsData: rows,
+      }),
+    });
   }
 
   function handleSelections(rowSelectionModel: GridRowSelectionModel) {
     // dynamically update ids selected
     setSelectedIds(rowSelectionModel);
+  }
+
+  function processRowError(error: any) {
+    console.log(error);
   }
 
   function handleDeleteSelected() {
@@ -304,6 +341,7 @@ export default function Applications(): JSX.Element {
         checkboxSelection
         disableRowSelectionOnClick
         onRowSelectionModelChange={(event) => handleSelections(event)}
+        onProcessRowUpdateError={(error) => processRowError(error)}
         rowSelectionModel={selectedIds}
       />
     </Box>
