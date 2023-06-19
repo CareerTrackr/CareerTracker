@@ -19,6 +19,7 @@ import {
   GridRenderCellParams,
   GridRowSelectionModel,
   GridTreeNodeWithRender,
+  R,
 } from '@mui/x-data-grid';
 import { grey } from '@mui/material/colors';
 import AddIcon from '@mui/icons-material/Add';
@@ -58,6 +59,31 @@ export default function Applications(): JSX.Element {
                 {params.row.link}
               </Link>
             );
+          if (newData.columns[i].field === 'status') {
+            newData.columns[i].renderCell = (
+              params: GridRenderCellParams<
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                any,
+                unknown,
+                unknown,
+                GridTreeNodeWithRender
+              >
+            ) => (
+              <TextField select defaultValue={params.row.status}>
+                <MenuItem value="Applied">Applied</MenuItem>
+                <MenuItem value="Followed Up">Followed Up</MenuItem>
+                <MenuItem value="Rejected">Rejected</MenuItem>
+                <MenuItem value="Lost">Lost</MenuItem>
+                <MenuItem value="Offer">Offer</MenuItem>
+                <MenuItem value="Phone Screen">Phone Screen</MenuItem>
+                <MenuItem value="Technical Interview/Take Home">
+                  Technical Interview/Take Home
+                </MenuItem>
+                <MenuItem value="Onsite">Onsite</MenuItem>
+                <MenuItem value="Declined">Declined</MenuItem>
+              </TextField>
+            );
+          }
         }
         setColumns(newData.columns);
         // assign each piece of data an id to keep track of the number of applications dynamically
@@ -98,6 +124,10 @@ export default function Applications(): JSX.Element {
       .catch((err) => {
         throw new Error(err);
       });
+  }
+
+  function handleRowUpdate(newRow: R, oldRow: R) {
+    console.log(newRow, oldRow);
   }
 
   function handleSelections(rowSelectionModel: GridRowSelectionModel) {
@@ -182,6 +212,7 @@ export default function Applications(): JSX.Element {
                   name="company"
                   variant="standard"
                   label="Company Title"
+                  defaultValue=""
                   placeholder="Company Title"
                   onChange={onChangeHandler}
                   sx={{ paddingBottom: 2, minWidth: '330px' }}
@@ -211,6 +242,7 @@ export default function Applications(): JSX.Element {
                 name="role"
                 variant="standard"
                 label="Role Title"
+                defaultValue=""
                 onChange={onChangeHandler}
                 sx={{ paddingBottom: 2 }}
               />
@@ -218,6 +250,7 @@ export default function Applications(): JSX.Element {
                 name="link"
                 variant="standard"
                 label="Link"
+                defaultValue=""
                 onChange={onChangeHandler}
                 sx={{ paddingBottom: 2 }}
               />
@@ -225,6 +258,7 @@ export default function Applications(): JSX.Element {
                 name="notes"
                 multiline
                 label="Notes"
+                defaultValue=""
                 variant="outlined"
                 placeholder="Notes here..."
                 onChange={onChangeHandler}
@@ -266,6 +300,7 @@ export default function Applications(): JSX.Element {
       <DataGrid
         rows={rows}
         columns={columns}
+        processRowUpdate={(newRow, oldRow) => handleRowUpdate(newRow, oldRow)}
         checkboxSelection
         disableRowSelectionOnClick
         onRowSelectionModelChange={(event) => handleSelections(event)}
