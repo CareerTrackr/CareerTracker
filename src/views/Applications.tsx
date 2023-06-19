@@ -66,31 +66,6 @@ export default function Applications(): JSX.Element {
                 {params.row.link}
               </Link>
             );
-          if (newData.columns[i].field === 'status') {
-            newData.columns[i].renderCell = (
-              params: GridRenderCellParams<
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                any,
-                unknown,
-                unknown,
-                GridTreeNodeWithRender
-              >
-            ) => (
-              <TextField select defaultValue={params.row.status}>
-                <MenuItem value="Applied">Applied</MenuItem>
-                <MenuItem value="Followed Up">Followed Up</MenuItem>
-                <MenuItem value="Rejected">Rejected</MenuItem>
-                <MenuItem value="Lost">Lost</MenuItem>
-                <MenuItem value="Offer">Offer</MenuItem>
-                <MenuItem value="Phone Screen">Phone Screen</MenuItem>
-                <MenuItem value="Technical Interview/Take Home">
-                  Technical Interview/Take Home
-                </MenuItem>
-                <MenuItem value="Onsite">Onsite</MenuItem>
-                <MenuItem value="Declined">Declined</MenuItem>
-              </TextField>
-            );
-          }
         }
         setColumns(newData.columns);
         // assign each piece of data an id to keep track of the number of applications dynamically
@@ -104,7 +79,6 @@ export default function Applications(): JSX.Element {
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     // dynamically update newRowData upon changes in modal
     setNewRowData({ ...newRowData, [event.target.name]: event.target.value });
-    console.log(newRowData);
   }
 
   function handleSubmit() {
@@ -143,11 +117,20 @@ export default function Applications(): JSX.Element {
       });
   }
 
-  function handleRowUpdate(newRow: RowData, oldRow: RowData) {
-    // console.log(newRow, oldRow);
-    for (let i = 0; i < rows.length; i += 1) {
-      if (rows[i].id === newRow.id) {
-        rows[i] = { ...rows[i], ...newRow };
+  function handleRowUpdate(newRow: RowData) {
+    const newRowsData = rows;
+    console.log(newRow);
+    for (let i = 0; i < newRowsData.length; i += 1) {
+      if (newRowsData[i].id === newRow.id) {
+        newRowsData[i].id = newRow.id;
+        newRowsData[i].date = newRow.date;
+        newRowsData[i].status = newRow.status;
+        newRowsData[i].company = newRow.company;
+        newRowsData[i].role = newRow.role;
+        newRowsData[i].link = newRow.link;
+        newRowsData[i].notes = newRow.notes;
+
+        setRows(newRowsData);
         break;
       }
     }
@@ -169,7 +152,7 @@ export default function Applications(): JSX.Element {
   }
 
   function processRowError(error: any) {
-    console.log(error);
+    return error;
   }
 
   function handleDeleteSelected() {
@@ -337,7 +320,7 @@ export default function Applications(): JSX.Element {
       <DataGrid
         rows={rows}
         columns={columns}
-        processRowUpdate={(newRow, oldRow) => handleRowUpdate(newRow, oldRow)}
+        processRowUpdate={(newRow) => handleRowUpdate(newRow)}
         checkboxSelection
         disableRowSelectionOnClick
         onRowSelectionModelChange={(event) => handleSelections(event)}
