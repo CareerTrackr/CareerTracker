@@ -40,7 +40,7 @@ export default function Notes(): JSX.Element {
 
   function onLinksChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setNotesData({ ...notesData, [event.target.name]: event.target.value });
-    console.log(notesData);
+
     fetch('http://localhost:5174/notes', {
       method: 'PATCH',
       headers: {
